@@ -157,8 +157,6 @@ $(document).ready(function(){
 		$(this).addClass("tabClick");
 	});
 	
-	
-
 });
 </script>
 <%@include file="header_dog.jsp" %>
@@ -180,7 +178,8 @@ $(document).ready(function(){
 					    </ul>
 				    </td>
 				    <td rowspan="2" style="background-color: #2d2926; color: white;">
-				    	가장 맛있는시간 30일 골드멤버가 되기위해 5개의 밥그릇을 채워주세요.
+				    	사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 
+				    	사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 
 				    </td>
 			    </tr>
 			    <tr >
@@ -246,7 +245,7 @@ $(document).ready(function(){
 	    <ul class="hm" id="subtab3" style="padding: 0; ">
 		    <li id="subtabli9" class="subtabli"><a href="semi_Mypage_MyInfoEdit.jsp">정보수정</a></li><span>|</span>
 		    <li id="subtabli10" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=10">나의 반려동물 정보</a></li><span>|</span>
-		    <li id="subtabli11" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=11">회원탈퇴</a></li>
+		    <li id="subtabli11" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=11" >회원탈퇴</a></li>
 	    </ul>
     </div>
   

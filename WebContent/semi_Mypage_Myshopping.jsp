@@ -148,6 +148,21 @@ $(document).ready(function(){
 	});
 
 });
+
+function delMember(){
+	if(confirm("회원을 탈퇴하시겠습니까?") == true){
+		
+		/*****************/
+		/* 회원탈퇴 작성 */
+		/*****************/
+		
+		alert("회원탈퇴가 완료되었습니다.")
+	}
+	else{
+		location.href="semi_Mypage_Myshopping.jsp?tabMenu=1";
+		return;
+	}
+}
 </script>
 
 <body>
@@ -443,13 +458,9 @@ $(document).ready(function(){
 		$(".subTab").hide();
 		$("#tab3").addClass("tabClick")
 		$(".subTab:eq(2)").show();
+		delMember();
 	</script>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
 			
-			<hr style="border: solid 0.5px silver;" >
-			<h1>탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴탈퇴</h1>
-			
-			</table>
 	</c:if>
 	</div>
 	</div>

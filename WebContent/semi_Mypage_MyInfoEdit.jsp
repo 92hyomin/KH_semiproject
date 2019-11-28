@@ -375,7 +375,7 @@ $(document).ready(function(){
 			<tr>
 			<th><div class="head-cell">나이</div></th>
 			<td><div class="col-cell">
-				<input type="radio" value="퍼피(1년미만)" id="petAge1" name="petAge" form="petAgeFrm" />
+				<input type="radio" value="퍼피(1년미만)" id="petAge1" name="petAge" form="petAgeFrm" checked/>
 				<label for="petAge1">퍼피(1년미만)</label>&nbsp;&nbsp;&nbsp;                                   
 				
 				<input type="radio" value="어덜트(1년~8년)" id="petAge2" name="petAge" form="petAgeFrm" />
