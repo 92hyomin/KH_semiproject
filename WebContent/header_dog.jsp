@@ -294,7 +294,7 @@
                     	<input id="search" style="width:80%;" onclick="" />
                     	<a id="searchIcon" style="width: 19%;"><img width="23" height="23" src="/Semi_Team1/images/search.png" /></a>
                     </li>
-                    <li style="width:7%; text-align: end;"><a href=""><img src="/Semi_Team1/images/user-image-with-black-background.png"></a></li>
+                    <li style="width:7%; text-align: end;"><a href=""><img src="/Semi_Team1/images/user_icon1.png"></a></li>
                     <li style="width:7%; text-align: end;"><a href="" style="padding:0; position: relative;" class="notification"><img alt="장바구니" src="/Semi_Team1/images/shopping-cart.png"><span class="badge">0</span></a></li>
                 </ul>
             </div>
