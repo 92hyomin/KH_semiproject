@@ -402,7 +402,7 @@ $(document).ready(function(){
 	
 	<div class="btns" style="margin-bottom: 40px;">
 		<button type="button" style="color: #fff;">수정하기</button>
-		<button type="button" style="background-color: white; color: black;" onclick="location.href='semi_Mypage_main.jsp'">취소하기</button>
+		<button type="button" style="background-color: white; color: black;" onclick="location.href='javascript:history.back()'">취소하기</button>
 	</div>
 	
 </div>
