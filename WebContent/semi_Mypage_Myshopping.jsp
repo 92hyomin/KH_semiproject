@@ -144,7 +144,7 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	font-weight: bold;
 }
 
-.recentlyProdTbl tr td, .wishListTbl tr td{	width: 23%;}
+.recentlyProdTbl tr td, .wishListTbl tr td, .myPetTbl tr td{	width: 23%;}
 
 #selectProdDel{
 	float: right;
@@ -157,10 +157,36 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	height: 40px;
 }
 
-div.wishList{
+.mypetInfoDiv{
+	border: solid 1px silver;
+	width: 270px;
+	height: 400px;
+	margin: 5px 5px 0 5px;
 }
 
+.mypetInfoDiv img{
+	margin-top: 20px;
+	margin-left: 35px;
+	width: 200px;
+	height: 200px;
+	margin-bottom: 20px;
+}
 
+.myPetTxt{
+	margin-left: 30px;
+	margin-bottom: 5px;
+	font-size: 9pt;
+}
+
+.myPetBtn{
+	width: 100%; 
+	font-weight: bold;
+	border: solid 1px silver;
+	background-color: #f2f2f2;
+	height: 30px;
+	margin-top: 20px;
+	
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -480,12 +506,53 @@ function delMember(){
 		$("#tab3").addClass("tabClick")
 		$(".subTab:eq(2)").show();
 	</script>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
-			
-			<hr style="border: solid 0.5px silver;" >
-			<h1>반려동물 정보 반려동물 정보 반려동물 정보 반려동물 정보 반려동물 정보 반려동물 정보 </h1>
-			
-			</table>
+		<div style="border-top: solid 1px black; border-bottom: solid 1px black; width: 500px; text-align: center; margin: 50px auto; padding: 10px;">
+		<span style="font-size: 13pt;">[이름]님께서 등록한 반려 동물은 <strong style="color: #da291c; font-size: 15pt;">총[마리수]</strong> 입니다.</span>
+		</div>
+		
+		<table class="myPetTbl" style="width: 100%;">
+			<tbody class="hm_tbody">
+			<colgroup>
+				<col style="width:200px;">
+				<col style="width:200px;">
+				<col style="width:200px;">
+				<col style="width:200px;">
+			</colgroup>
+			<tr>
+				<td>
+					<div class="mypetInfoDiv">
+					<table>
+					<tr><td colspan="2">
+						<img src="img/mypet.png" style="border-radius: 100%;">
+						<p class="myPetTxt">이름: [반려동물이름]</p>
+						<p class="myPetTxt">견종: [견종]</p>
+						<p class="myPetTxt">체중: [체중]kg</p>
+						<p class="myPetTxt">성별: [성별]</p>
+						<p class="myPetTxt">생년: [생년월일]</p>
+					</tr></td>
+					<tr>
+						<td><button class="myPetBtn" type="button">수정</button></td>
+						<td><button class="myPetBtn" type="button">삭제</button></td>
+					</tr>
+					</table>
+					</div>
+				</td>
+				
+				<td>
+					<div class="mypetInfoDiv" style="padding-top: 80px;">
+						<img src="img/addPetimg.png">
+					</div>
+				</td>
+				
+				<td>
+				</td>
+				
+				<td>
+				</td>
+				
+			</tr>
+		</tbody>
+		</table>
 	</c:if>
 	
 	<!-- 회원탈퇴 -->
