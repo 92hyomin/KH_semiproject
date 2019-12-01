@@ -144,7 +144,7 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	font-weight: bold;
 }
 
-.recentlyProdTbl tr td, .wishListTbl tr td{	width: 23%; }
+.recentlyProdTbl tr td, .wishListTbl tr td{	width: 23%;}
 
 #selectProdDel{
 	float: right;
@@ -156,6 +156,11 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	width: 130px;
 	height: 40px;
 }
+
+div.wishList{
+}
+
+
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -404,14 +409,14 @@ function delMember(){
 			<tr>
 			<td>
 				<div class="wishList">
-					<img src="img/product.png"/ width="280" height="280">
+					<img src="img/product.png"/ width="280px" height="280px">
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>
 			</td>
 			<td>
 				<div class="wishList">
-					<img src="img/product.png"/ width="280" height="280">
+					<img src="img/product.png"/ width="280px" height="280px">
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>

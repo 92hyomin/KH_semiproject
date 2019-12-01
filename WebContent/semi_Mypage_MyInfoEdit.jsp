@@ -112,7 +112,29 @@ $(document).ready(function(){
 			$("#email2").focus();
 		}
 	});
+	
 });
+
+function goEdit(){
+	var passwd1 = $("#passwd1").val().trim();
+	var passwd2 = $("#passwd2").val().trim();
+	if(passwd1==""){
+		alert("패스워드를 입력하세요");
+		$("#passwd1").focus();
+	}
+	else if(passwd2==""){
+		alert("패스워드 확인을 입력하세요");
+		$("#passwd2").focus();
+	}
+	else if(passwd1 != passwd2){
+		alert("패스워드와 패스워드확인이 일치하지 않습니다");
+		$("#passwd1").focus();
+	}
+	else{
+		alert("정보수정이 완료되었습니다.");
+		location.href="semi_Mypage_main.jsp";
+	}
+}
 </script>
 <%@include file="header_dog.jsp" %>
 </head>
@@ -167,9 +189,9 @@ $(document).ready(function(){
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>우편번호</div></th>
 				<td><div class="col-cell">
-				<input type="text" style="width: 80px; height: 30px" id="post1" name="post1" size="6" maxlength="3" />
+				<input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver;" id="post1" name="post1" size="6" maxlength="3" disabled />
 			    &nbsp;-&nbsp;
-			    <input type="text" style="width: 80px; height: 30px" id="post2" name="post2" size="6" maxlength="3" />&nbsp;&nbsp;
+			    <input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver; " id="post2" name="post2" size="6" maxlength="3" disabled />&nbsp;&nbsp;
 			    <!-- 우편번호 찾기 -->
 			    <img id="zipcodeSearch" src="images/b_zipcode.gif" style="vertical-align: middle;" />
 			    <span class="error error_post">우편번호 형식이 아닙니다.</span>
@@ -179,7 +201,7 @@ $(document).ready(function(){
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>집주소</div></th>
 				<td><div class="col-cell">
-				   <input type="text" id="addr1" class="address" name="addr1" style="width: 90%; height: 30px;" />
+				   <input type="text" id="addr1" class="address" name="addr1" style="width: 90%; height: 30px; background-color: white; border: solid 1px silver;" disabled />
 				</div></td>
 			</tr>
 			
@@ -401,7 +423,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div class="btns" style="margin-bottom: 40px;">
-		<button type="button" style="color: #fff;">수정하기</button>
+		<button id="editBtn" type="button" style="color: #fff;" onclick="goEdit()">수정하기</button>
 		<button type="button" style="background-color: white; color: black;" onclick="location.href='javascript:history.back()'">취소하기</button>
 	</div>
 	
