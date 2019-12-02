@@ -20,7 +20,7 @@
 	    <ul class="hm" id="subtab2" style="padding: 0; ">
 		    <li id="subtabli5" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=5">최근 본 상품</a></li><span>|</span>
 		    <li id="subtabli6" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=6">관심 상품</a></li><span>|</span>
-		    <li id="subtabli7" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=7">1:1 문의</a></li><span>|</span>
+		    <li id="subtabli7" class="subtabli"><a href="semi_Mypage_QnA.jsp">1:1 문의</a></li><span>|</span>
 		    <li id="subtabli8" class="subtabli"><a href="semi_Mypage_Myshopping.jsp?tabMenu=8">내 게시글</a></li>
 	    </ul>
     </div>

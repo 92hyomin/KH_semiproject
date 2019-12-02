@@ -156,13 +156,13 @@ function goEdit(){
 			
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>아이디</div></th>
-				<td><div class="col-cell"><span>92hyomin</span></td>
+				<td><div class="col-cell"><span>92hyomin</span></div></td>
 			</tr>
 			
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>비밀번호</div></th>
 				<td><div class="col-cell"><input class="myinfo_input" id="passwd1" name="passwd1" type="password">
-					<br><span style="font-size: 9pt;">* 영문 대소문자/숫자/특수문자를 혼용하여 2종류 10~16자 또는 3종류 8~16자<span>
+					<br><span style="font-size: 9pt;">* 영문 대소문자/숫자/특수문자를 혼용하여 2종류 10~16자 또는 3종류 8~16자</span>
 				</div></td>
 			</tr>
 			
@@ -191,7 +191,7 @@ function goEdit(){
 			    &nbsp;-&nbsp;
 			    <input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver; " id="post2" name="post2" size="6" maxlength="3" disabled />&nbsp;&nbsp;
 			    <!-- 우편번호 찾기 -->
-			    <img id="zipcodeSearch" src="images/b_zipcode.gif" style="vertical-align: middle;" />
+			    <img id="zipcodeSearch" src="../hm_img/b_zipcode.gif" style="vertical-align: middle;" />
 			    <span class="error error_post">우편번호 형식이 아닙니다.</span>
 				</div></td>
 			</tr>

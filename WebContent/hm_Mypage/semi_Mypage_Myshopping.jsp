@@ -148,13 +148,15 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	font-weight: bold;
 }
 
-.recentlyProdTbl tr td, .wishProd, .myPetTbl tr td{border: solid 1px red; }
 .wishProd{
 	padding-left: 30px;
 }
-.wishListDiv{
-	cursor: pointer;
-	border: solid 1px gray;
+
+.recentlyProd, .wishProd{
+	cursor: pointer; 
+}
+
+.wishListDiv, .recentlyProdDiv, .myPetInfoDiv{
 	display: inline-block;
 	width: 100%;
 }
@@ -170,16 +172,18 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	height: 40px;
 }
 
-.mypetInfoDiv{
+.mypetInfo{
 	border: solid 1px silver;
 	width: 270px;
 	height: 400px;
 	margin: 5px 5px 0 5px;
+	padding-left: 0;
+	padding-right: 0;
 }
 
-.mypetInfoDiv img{
+.mypetInfo img{
 	margin-top: 20px;
-	margin-left: 35px;
+	margin-left: 20px;
 	width: 200px;
 	height: 200px;
 	margin-bottom: 20px;
@@ -192,13 +196,51 @@ a:hover{ text-decoration: none; color: #9d6849; }
 }
 
 .myPetBtn{
-	width: 100%; 
+	width: 134px; 
 	font-weight: bold;
 	border: solid 1px silver;
 	background-color: #f2f2f2;
 	height: 30px;
 	margin-top: 20px;
 }
+
+.ptxt{
+	text-align: center;
+	color: gray;
+}
+
+.input_textarea{
+	width: 100%;
+	height: 280px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	border: solid 1px silver;
+}
+
+.btn{
+	width: 230px;
+	height: 50px;
+	border: solid 1px #231f20;
+	padding: 15px;
+	font-size: 12pt;
+	border-radius: 0px;
+}
+
+#btnArea{
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+.delUserBtn{
+	background-color: #231f20;
+	color: white;
+}
+
+.cancelBtn{
+	background-color: white;
+	color: #231f20;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -210,17 +252,44 @@ $(document).ready(function(){
         $("#" + activeTab).show()
 		$(this).addClass("tabClick");
 	});
+	
+	$(".delUserBtn").hover(
+			function(){
+				$(this).removeClass("delUserBtn");
+				$(this).addClass("cancelBtn");
+			},
+			function(){
+				$(this).removeClass("cancelBtn");
+				$(this).addClass("delUserBtn");
+			});
+		
+	$(".cancelBtn").hover(
+		function(){
+			$(this).removeClass("cancelBtn");
+			$(this).addClass("delUserBtn");
+			$(this).css("color","white");
+		},
+		function(){
+			$(this).removeClass("delUserBtn");
+			$(this).addClass("cancelBtn");
+			$(this).css("color","#231f20");
+		});
+	
+	$("#delUserBtn").click(function(){
+		delMember();		
+	});
 
 });
 
 function delMember(){
 	if(confirm("회원을 탈퇴하시겠습니까?") == true){
 		
-		/*****************/
-		/* 회원탈퇴 작성 */
-		/*****************/
+		////////////////////////
+		/* 회원탈퇴 작업 작성 */
+		////////////////////////
 		
 		alert("회원탈퇴가 완료되었습니다.")
+		location.href="semi_Mypage_Myshopping.jsp?tabMenu=1";
 	}
 	else{
 		location.href="semi_Mypage_Myshopping.jsp?tabMenu=1";
@@ -231,7 +300,7 @@ function delMember(){
 
 <body>
 <div id="login_container">
-	<span id="top_comment">Home>Mypage>주문서 리스트</span><br>
+	<span id="top_comment"></span><br>
 	<h1 class="hm_h1">마이페이지</h1>
 		
 	<%@include file="semi_Mypage_Submenu.jsp" %>
@@ -242,28 +311,12 @@ function delMember(){
 	
 	<!-- 최근주문내역 -->
 	<c:if test="${param.tabMenu eq 1}">
-	<%-- <c:if test="${empty requestScope.memberList}">
-		<tr>
-			<td colspan="5">가입된 회원이 없습니다</td>
-		</tr>
-	</c:if>
-	
-	<c:if test="${!empty requestScope.memberList}">
-		<c:forEach var="membervo" items="${requestScope.memberList}">
-			<tr>
-				<td>${membervo.idx }</td>
-				<td>${membervo.userid }</td>
-				<td>${membervo.name }</td>
-				<td>${membervo.email }</td>
-				<td>${membervo.gender }</td>
-			</tr>
-		</c:forEach>
-	</c:if> --%>
 	<script type="text/javascript">
 		$("#subtabli1 > a").addClass('subtabClick');
 		$(".subTab").hide();
 		$("#tab1").addClass("tabClick")
 		$(".subTab:first").show();
+		$("#top_comment").html("Home>Mypage>최근 주문내역");
 	</script>
 	<h4 style="font-weight: bold; margin-top: 40px;">최근 주문내역</h4>
 			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
@@ -298,6 +351,7 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab1").addClass("tabClick")
 		$(".subTab:first").show();
+		$("#top_comment").html("Home>Mypage>적립금 내역");
 	</script>
 	<h4 style="font-weight: bold; margin-top: 40px;">적립금 내역</h4>
 			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
@@ -325,6 +379,7 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab1").addClass("tabClick")
 		$(".subTab:first").show();
+		$("#top_comment").html("Home>Mypage>포인트 내역");
 	</script>
 	<h4 style="font-weight: bold; margin-top: 40px;">포인트 내역</h4>
 			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
@@ -353,6 +408,7 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab1").addClass("tabClick")
 		$(".subTab:first").show();
+		$("#top_comment").html("Home>Mypage>쿠폰내역");
 	</script>
 			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
 			
@@ -397,40 +453,41 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab2").addClass("tabClick")
 		$(".subTab:eq(1)").show();
+		$("#top_comment").html("Home>Mypage>최근 본 상품");
 	</script>
-		<hr style="border: solid 1px gray; margin-top: 50px;">
-		<table class="recentlyProdTbl" style="">
-		<tr>
-		<td>
-			<div class="recentlyProd">
-				<img src="../hm_img/product.png"/ width="280" height="280">
+		<hr style="border: solid 0.5px gray; margin-top: 50px;">
+		<div class="recentlyProdDiv" >
+			<div class="recentlyProd col-md-3">
+				<img class="prodImg" src="../hm_img/product.png" />
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
-		</td>
-		<td>
-			<div class="recentlyProd">
-				<img src="../hm_img/product.png"/ width="280" height="280">
+			<div class="recentlyProd col-md-3">
+				<img class="prodImg" src="../hm_img/product.png" />
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
-		</td>
-		<td>
-			<div class="recentlyProd">
-				<img src="../hm_img/product.png"/ width="280" height="280">
+			<div class="recentlyProd col-md-3">
+				<img class="prodImg" src="../hm_img/product.png" />
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
-		</td>
-		<td>
-			<div class="recentlyProd">
-				<img src="../hm_img/product.png"/ width="280" height="280">
+			<div class="recentlyProd col-md-3">
+				<img class="prodImg" src="../hm_img/product.png" />
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
-		</td>
-		</tr>
-		</table>
+			<div class="recentlyProd col-md-3">
+				<img class="prodImg" src="../hm_img/product.png" />
+				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
+				<p id="prodPrice">4,200원</p>
+			</div>
+			<div class="recentlyProd col-md-3">
+				<img class="prodImg" src="../hm_img/product.png" />
+				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
+				<p id="prodPrice">4,200원</p>
+			</div>
+		</div>
 	</c:if>
 	
 	
@@ -441,9 +498,25 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab2").addClass("tabClick")
 		$(".subTab:eq(1)").show();
+		$("#top_comment").html("Home>Mypage>관심 상품");
 	</script>
 		<hr style="border: solid 0.5px gray; margin-top: 50px;">
 		<div class="wishListDiv">
+				<div class="wishProd col-md-3">
+					<img class="prodImg" src="../hm_img/product.png"/>
+					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
+					<p id="prodPrice">4,200원</p>
+				</div>
+				<div class="wishProd col-md-3">
+					<img class="prodImg" src="../hm_img/product.png"/>
+					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
+					<p id="prodPrice">4,200원</p>
+				</div>
+				<div class="wishProd col-md-3">
+					<img class="prodImg" src="../hm_img/product.png"/>
+					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
+					<p id="prodPrice">4,200원</p>
+				</div>
 				<div class="wishProd col-md-3">
 					<img class="prodImg" src="../hm_img/product.png"/>
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
@@ -464,20 +537,7 @@ function delMember(){
 		<button id="selectProdDel" type="button">선택상품 삭제</button>
 	</c:if>
 	
-	<!-- 나의활동->1:1문의-->
-	<c:if test="${param.tabMenu eq 7}">
-	<script type="text/javascript">
-		$("#subtabli7 > a").addClass('subtabClick');
-		$(".subTab").hide();
-		$("#tab2").addClass("tabClick")
-		$(".subTab:eq(1)").show();
-	</script>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
-			
-			<hr style="border: solid 0.5px silver;">
-			<h1>없는페이지</h1>
-			</table>
-	</c:if>
+	
 	
 	<!-- 나의활동->내 게시글-->
 	<c:if test="${param.tabMenu eq 8}">
@@ -486,6 +546,7 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab2").addClass("tabClick")
 		$(".subTab:eq(1)").show();
+		$("#top_comment").html("Home>Mypage>내 게시글");
 	</script>
 			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
 			<h4 style="font-weight: bold; margin-top: 40px;">내 게시글</h4>
@@ -517,55 +578,36 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab3").addClass("tabClick")
 		$(".subTab:eq(2)").show();
+		$("#top_comment").html("Home>Mypage>반려동물 정보");
 	</script>
 		<div style="border-top: solid 1px black; border-bottom: solid 1px black; width: 500px; text-align: center; margin: 50px auto; padding: 10px;">
 		<span style="font-size: 13pt;">[이름]님께서 등록한 반려 동물은 <strong style="color: #da291c; font-size: 15pt;">총[마리수]</strong> 입니다.</span>
 		</div>
 		
-		<table class="myPetTbl" style="width: 100%;">
-			<tbody class="hm_tbody">
-			<colgroup>
-				<col style="width:200px;">
-				<col style="width:200px;">
-				<col style="width:200px;">
-				<col style="width:200px;">
-			</colgroup>
+		<div class="myPetInfoDiv" >
+			<div class="mypetInfo col-md-3">
+			<table>
+			<tr><td colspan="2">
+				<img src="../hm_img/mypet.png" style="border-radius: 100%;">
+				<p class="myPetTxt">이름: [반려동물이름]</p>
+				<p class="myPetTxt">견종: [견종]</p>
+				<p class="myPetTxt">체중: [체중]kg</p>
+				<p class="myPetTxt">성별: [성별]</p>
+				<p class="myPetTxt">생년: [생년월일]</p>
+			</tr></td>
 			<tr>
-				<td>
-					<div class="mypetInfoDiv">
-					<table>
-					<tr><td colspan="2">
-						<img src="../hm_img/mypet.png" style="border-radius: 100%;">
-						<p class="myPetTxt">이름: [반려동물이름]</p>
-						<p class="myPetTxt">견종: [견종]</p>
-						<p class="myPetTxt">체중: [체중]kg</p>
-						<p class="myPetTxt">성별: [성별]</p>
-						<p class="myPetTxt">생년: [생년월일]</p>
-					</tr></td>
-					<tr>
-						<td><button class="myPetBtn" type="button">수정</button></td>
-						<td><button class="myPetBtn" type="button">삭제</button></td>
-					</tr>
-					</table>
-					</div>
-				</td>
-				
-				<td>
-					<div class="mypetInfoDiv" style="padding-top: 80px;">
-						<img src="../hm_img/addPetimg.png">
-					</div>
-				</td>
-				
-				<td>
-				</td>
-				
-				<td>
-				</td>
-				
+				<td style="width: 50%;"><button class="myPetBtn" type="button">수정</button></td>
+				<td style="width: 50%;"><button class="myPetBtn" type="button">삭제</button></td>
 			</tr>
-		</tbody>
-		</table>
+			</table>
+			</div>
+		
+			<div class="mypetInfo col-md-3" style="padding-top: 80px;">
+				<img src="../hm_img/addPetimg.png">
+			</div>
+		</div>
 	</c:if>
+	
 	
 	<!-- 회원탈퇴 -->
 	<c:if test="${param.tabMenu eq 11}">
@@ -574,12 +616,24 @@ function delMember(){
 		$(".subTab").hide();
 		$("#tab3").addClass("tabClick")
 		$(".subTab:eq(2)").show();
-		delMember();
+		$("#top_comment").html("Home>Mypage>회원탈퇴");
 	</script>
+	
+	<h1 class="hm_h1" style="margin-bottom: 20px; margin-top: 100px;">회원정보 탈퇴신청</h1>
+	<p class="ptxt">
+	저희 쇼핑몰의 부족했던 점과 아쉬웠던 점을 적어주십시오. 더 좋은 모습으로 발전하도록 최선을 다하겠습니다. <br/>
+	앞으로 더 나은 모습으로 고객님을 다시 만날 수 있도록 노력하겠습니다. 그동안 이용해주신 것을 진심으로 감사드립니다. <br />
+	</p>
+	<p class="ptxt" style="color: black;">탈퇴 사유를 적어주시면 쇼핑몰 운영에 적극 반영하겠습니다.</p>
+	
+	<textarea class="input_textarea" rows="10" cols="70"></textarea>
+	
+	<div id="btnArea">
+		<a class="btn delUserBtn" id="delUserBtn">회원탈퇴</a>
+		<a class="btn cancelBtn" id="cancelBtn" href="javascript:history.back()">취소하기</a>
+	</div>
 			
 	</c:if>
-	</div>
-	</div>
 </body>
 
 

@@ -65,7 +65,6 @@ table.tbl tbody tr th,table.tbl tbody tr td{
 #btnArea{
 	text-align: center;
 	margin-bottom: 50px;
-	
 }
 
 .submitBtn{

@@ -169,7 +169,7 @@ $(document).ready(function(){
 			<table id="myinfobox">
 			    <tr>
 				    <td class="myinfo_left" colspan="4" >
-					    <p id="gradeimg"><img src="../hm_img/royalimg_RQ04.gif" style="border-radius: 100%;"/></p>
+					    <p id="gradeimg"><img src="../hm_img/gradeimg.gif" style="border-radius: 100%;"/></p>
 					    <p id="gradetxt">[아이디]님은 <span style="color: #916b4a;">First Member</span>등급입니다.</p>
 					    <ul class="hm">
 					    <li id="infoli"><button id="myinfobtn" type="button">등급별 혜택</button></li>
