@@ -135,8 +135,13 @@ a{ text-decoration: none; color: black;}
 a:hover{ text-decoration: none; color: #9d6849; }
 
 #prodName, #prodPrice{
-	width: 275px;
+	width: 200px;
 	text-align: center;
+}
+
+.prodImg{
+	width: 200px;
+	height: 200px;
 }
 
 #prodPrice{
@@ -144,7 +149,15 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	font-weight: bold;
 }
 
-.recentlyProdTbl tr td, .wishListTbl tr td, .myPetTbl tr td{	width: 23%;}
+.recentlyProdTbl tr td, .wishProd, .myPetTbl tr td{border: solid 1px red; }
+.wishProd{
+	padding-left: 30px;
+}
+.wishListDiv{
+	border: solid 1px gray;
+	display: inline-block;
+	width: 100%;
+}
 
 #selectProdDel{
 	float: right;
@@ -185,7 +198,6 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	background-color: #f2f2f2;
 	height: 30px;
 	margin-top: 20px;
-	
 }
 </style>
 <script type="text/javascript">
@@ -430,25 +442,25 @@ function delMember(){
 		$("#tab2").addClass("tabClick")
 		$(".subTab:eq(1)").show();
 	</script>
-		<hr style="border: solid 1px gray; margin-top: 50px;">
-		<table class="wishListTbl" style="border-bottom: solid 1px gray;">
-			<tr>
-			<td>
-				<div class="wishList">
-					<img src="img/product.png"/ width="280px" height="280px">
+		<hr style="border: solid 0.5px gray; margin-top: 50px;">
+		<div class="wishListDiv">
+				<div class="wishProd col-md-3">
+					<img class="prodImg" src="img/product.png"/>
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>
-			</td>
-			<td>
-				<div class="wishList">
-					<img src="img/product.png"/ width="280px" height="280px">
+				<div class="wishProd col-md-3">
+					<img class="prodImg" src="img/product.png"/>
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>
-			</td>
-			</tr>
-		</table>
+				<div class="wishProd col-md-3">
+					<img class="prodImg" src="img/product.png"/>
+					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
+					<p id="prodPrice">4,200원</p>
+				</div>
+		</div>
+		<hr style="border: solid 0.5px gray;">
 		<button id="selectProdDel" type="button">선택상품 삭제</button>
 	</c:if>
 	
