@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="header_dog.jsp" %>
-
+<%@include file="../header_dog.jsp" %>
 
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -154,6 +153,7 @@ a:hover{ text-decoration: none; color: #9d6849; }
 	padding-left: 30px;
 }
 .wishListDiv{
+	cursor: pointer;
 	border: solid 1px gray;
 	display: inline-block;
 	width: 100%;
@@ -403,28 +403,28 @@ function delMember(){
 		<tr>
 		<td>
 			<div class="recentlyProd">
-				<img src="img/product.png"/ width="280" height="280">
+				<img src="../hm_img/product.png"/ width="280" height="280">
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
 		</td>
 		<td>
 			<div class="recentlyProd">
-				<img src="img/product.png"/ width="280" height="280">
+				<img src="../hm_img/product.png"/ width="280" height="280">
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
 		</td>
 		<td>
 			<div class="recentlyProd">
-				<img src="img/product.png"/ width="280" height="280">
+				<img src="../hm_img/product.png"/ width="280" height="280">
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
 		</td>
 		<td>
 			<div class="recentlyProd">
-				<img src="img/product.png"/ width="280" height="280">
+				<img src="../hm_img/product.png"/ width="280" height="280">
 				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 				<p id="prodPrice">4,200원</p>
 			</div>
@@ -445,17 +445,17 @@ function delMember(){
 		<hr style="border: solid 0.5px gray; margin-top: 50px;">
 		<div class="wishListDiv">
 				<div class="wishProd col-md-3">
-					<img class="prodImg" src="img/product.png"/>
+					<img class="prodImg" src="../hm_img/product.png"/>
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>
 				<div class="wishProd col-md-3">
-					<img class="prodImg" src="img/product.png"/>
+					<img class="prodImg" src="../hm_img/product.png"/>
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>
 				<div class="wishProd col-md-3">
-					<img class="prodImg" src="img/product.png"/>
+					<img class="prodImg" src="../hm_img/product.png"/>
 					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
 					<p id="prodPrice">4,200원</p>
 				</div>
@@ -535,7 +535,7 @@ function delMember(){
 					<div class="mypetInfoDiv">
 					<table>
 					<tr><td colspan="2">
-						<img src="img/mypet.png" style="border-radius: 100%;">
+						<img src="../hm_img/mypet.png" style="border-radius: 100%;">
 						<p class="myPetTxt">이름: [반려동물이름]</p>
 						<p class="myPetTxt">견종: [견종]</p>
 						<p class="myPetTxt">체중: [체중]kg</p>
@@ -552,7 +552,7 @@ function delMember(){
 				
 				<td>
 					<div class="mypetInfoDiv" style="padding-top: 80px;">
-						<img src="img/addPetimg.png">
+						<img src="../hm_img/addPetimg.png">
 					</div>
 				</td>
 				
@@ -583,7 +583,7 @@ function delMember(){
 </body>
 
 
-<%@include file="footer_dog.jsp" %>
+<%@include file="../footer_dog.jsp" %>
 
 
 

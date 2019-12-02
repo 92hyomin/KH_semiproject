@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<%@include file="../header_dog.jsp" %>
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 #login_container {
@@ -159,8 +158,8 @@ $(document).ready(function(){
 	
 });
 </script>
-<%@include file="header_dog.jsp" %>
-</head>
+
+
 <body>
 <div id="login_container">
 	<span id="top_comment">Home>Mypage>마이페이지 메인</span><br>
@@ -170,7 +169,7 @@ $(document).ready(function(){
 			<table id="myinfobox">
 			    <tr>
 				    <td class="myinfo_left" colspan="4" >
-					    <p id="gradeimg"><img src="img/royalimg_RQ04.gif" style="border-radius: 100%;"/></p>
+					    <p id="gradeimg"><img src="../hm_img/royalimg_RQ04.gif" style="border-radius: 100%;"/></p>
 					    <p id="gradetxt">[아이디]님은 <span style="color: #916b4a;">First Member</span>등급입니다.</p>
 					    <ul class="hm">
 					    <li id="infoli"><button id="myinfobtn" type="button">등급별 혜택</button></li>
@@ -185,28 +184,28 @@ $(document).ready(function(){
 			    <tr >
 				    <td>
 				    	<a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=1">
-					    <p id="bottom_img"><img src="img/orderList.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
+					    <p id="bottom_img"><img src="../hm_img/orderList.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 						주문<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 				    	</a>
 				    </td>
 				    <td>
 				    	<a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=2">
-					    <p id="bottom_img"><img src="img/reserve.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
+					    <p id="bottom_img"><img src="../hm_img/reserve.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    적립금<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 					    </a>
 					</td>
 				    <td>
 					    <a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=3">
-					    <p id="bottom_img"><img src="img/point.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
+					    <p id="bottom_img"><img src="../hm_img/point.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    포인트(삭제)<br/>
 					    <strong style="color: #ff4800;">0점</strong>
 					    </a>
 					</td>
 				    <td>
 					    <a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=4">
-					    <p id="bottom_img"><img src="img/coupon.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
+					    <p id="bottom_img"><img src="../hm_img/coupon.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    쿠폰(삭제)<br/>
 					    <strong style="color: #ff4800;">0개</strong>
 					    </a>
@@ -250,7 +249,7 @@ $(document).ready(function(){
 
 
 
-<%@include file="footer_dog.jsp" %>
+<%@include file="../footer_dog.jsp" %>
 
 
 

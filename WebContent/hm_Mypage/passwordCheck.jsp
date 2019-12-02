@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="header_dog.jsp" %>
+<%@include file="../header_dog.jsp" %>
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 #login_container {
@@ -126,7 +126,7 @@ $(document).ready(function(){
 </script>
 <div id="login_container">
 	<h1 class="hm_h1">비밀번호 재확인</h1>
-	<p style="text-align: center;"><img alt="이미지" src="img/security.png" height="200px;"></p>
+	<p style="text-align: center;"><img alt="이미지" src="../hm_img/security.png" height="200px;"></p>
 	<span>
 	<p class="ptxt">
 	저희 쇼핑몰에서는 회원님의 소중한 개인정보를 안전하게 보호하고 <br/>
@@ -153,4 +153,4 @@ $(document).ready(function(){
 	</div>
 </div>
 
-<%@include file="footer_dog.jsp" %>
+<%@include file="../footer_dog.jsp" %>

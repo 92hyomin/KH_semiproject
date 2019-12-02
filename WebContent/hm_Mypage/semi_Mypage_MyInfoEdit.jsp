@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<%@include file="../header_dog.jsp" %>
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 #login_container {
@@ -136,8 +135,7 @@ function goEdit(){
 	}
 }
 </script>
-<%@include file="header_dog.jsp" %>
-</head>
+
 <body>
 <div id="login_container">
 	<span id="top_comment">Home>Mypage>회원정보 입력</span><br>
@@ -268,7 +266,7 @@ function goEdit(){
 	
 	<div class="petInfo">
 	<span style="margin: 40px 0 0 0; font-size: 15pt; font-weight: bold;">나의 반려동물 정보</span>
-	<img id="petImg" onclick="location.href='http://localhost:9090/Semi_Team1/semi_Mypage_Myshopping.jsp?tabMenu=10'" src="img/petinfo.png" >
+	<img id="petImg" onclick="location.href='http://localhost:9090/Semi_Team1/semi_Mypage_Myshopping.jsp?tabMenu=10'" src="../hm_img/petinfo.png" >
 	<hr style="border: solid 1px gray; margin: 0;">
 	<table class="myinfoTbl tbl">
 		<colgroup>
@@ -430,7 +428,7 @@ function goEdit(){
 </div>
 </body>
 
-<%@include file="footer_dog.jsp" %>
+<%@include file="../footer_dog.jsp" %>
 
 
 
