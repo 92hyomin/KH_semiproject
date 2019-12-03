@@ -82,7 +82,16 @@ button{
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	$("#mailSite").bind("change",function(){
+		if( $(this).val() != 0){
+			var emailSite = $(this).val();
+			$("#email2").val(emailSite);
+		}
+		else{
+			$("#email2").val("");
+			$("#email2").focus();
+		}
+	});
 	
 });
 
@@ -162,7 +171,7 @@ function goQnA(){
 				@
 				<input class="email" id="email2" name="email2" type="text" style="width: 150px; height: 30px;">
 				<select id="mailSite" style="width: 100px; height: 30px;">
-				<option value="direct">직접입력</option>
+				<option value="">직접입력</option>
 				<option value="naver.com">naver.com</option>
 				<option value="hotmail.com">hotmail.com</option>
 				<option value="hanmail.net">hanmail.net</option>

@@ -31,6 +31,9 @@
 	width: 100%;
 }
 
+.hm_a{ text-decoration: none; color: black;}
+.hm_a:hover{ text-decoration: none; color: #9d6849; }
+
 .myinfo_txt{
 	text-align: center;
 	font-size: 15pt;
@@ -130,8 +133,7 @@ li{
 
 #couponArea{ text-align: center; }
 
-a{ text-decoration: none; color: black;}
-a:hover{ text-decoration: none; color: #9d6849; }
+
 
 #prodName, #prodPrice{
 	width: 200px;
@@ -302,7 +304,6 @@ function delMember(){
 <div id="login_container">
 	<span id="top_comment"></span><br>
 	<h1 class="hm_h1">마이페이지</h1>
-		
 	<%@include file="semi_Mypage_Submenu.jsp" %>
     
     
@@ -318,29 +319,7 @@ function delMember(){
 		$(".subTab:first").show();
 		$("#top_comment").html("Home>Mypage>최근 주문내역");
 	</script>
-	<h4 style="font-weight: bold; margin-top: 40px;">최근 주문내역</h4>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
-				<thead class="hm_thead">
-					<tr>
-						<th>번호</th>
-						<th>주문번호</th>
-						<th>상품명</th>
-						<th>결제금액</th>
-						<th>주문일자</th>
-						<th>상태</th>
-					</tr>
-				</thead>
-				<tbody class="hm_tbody">
-					<tr>
-						<td>John</td>
-						<td>Doe</td>
-						<td>john@example.com</td>
-						<td>test</td>
-						<td>test</td>
-						<td>test</td>
-					</tr>
-				</tbody>
-			</table>
+		<%@include file="semi_Mypage_recentlyOrder.jsp" %>
 	</c:if>
 	
 	
@@ -353,23 +332,7 @@ function delMember(){
 		$(".subTab:first").show();
 		$("#top_comment").html("Home>Mypage>적립금 내역");
 	</script>
-	<h4 style="font-weight: bold; margin-top: 40px;">적립금 내역</h4>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
-				<thead class="hm_thead">
-					<tr>
-						<th>날짜</th>
-						<th>내용</th>
-						<th>적립금</th>
-					</tr>
-				</thead>
-				<tbody class="hm_tbody">
-					<tr>
-						<td>2019-11-21</td>
-						<td>사료1000개 구입</td>
-						<td>+50,000원</td>
-					</tr>
-				</tbody>
-			</table>
+		<%@include file="semi_Mypage_Reserve.jsp" %>
 	</c:if>
 	
 	<!-- 포인트내역 -->
@@ -455,39 +418,7 @@ function delMember(){
 		$(".subTab:eq(1)").show();
 		$("#top_comment").html("Home>Mypage>최근 본 상품");
 	</script>
-		<hr style="border: solid 0.5px gray; margin-top: 50px;">
-		<div class="recentlyProdDiv" >
-			<div class="recentlyProd col-md-3">
-				<img class="prodImg" src="../hm_img/product.png" />
-				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-				<p id="prodPrice">4,200원</p>
-			</div>
-			<div class="recentlyProd col-md-3">
-				<img class="prodImg" src="../hm_img/product.png" />
-				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-				<p id="prodPrice">4,200원</p>
-			</div>
-			<div class="recentlyProd col-md-3">
-				<img class="prodImg" src="../hm_img/product.png" />
-				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-				<p id="prodPrice">4,200원</p>
-			</div>
-			<div class="recentlyProd col-md-3">
-				<img class="prodImg" src="../hm_img/product.png" />
-				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-				<p id="prodPrice">4,200원</p>
-			</div>
-			<div class="recentlyProd col-md-3">
-				<img class="prodImg" src="../hm_img/product.png" />
-				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-				<p id="prodPrice">4,200원</p>
-			</div>
-			<div class="recentlyProd col-md-3">
-				<img class="prodImg" src="../hm_img/product.png" />
-				<p id="prodName">[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-				<p id="prodPrice">4,200원</p>
-			</div>
-		</div>
+		<%@include file="semi_Mypage_RecentlyViewProd.jsp" %>
 	</c:if>
 	
 	
@@ -500,41 +431,7 @@ function delMember(){
 		$(".subTab:eq(1)").show();
 		$("#top_comment").html("Home>Mypage>관심 상품");
 	</script>
-		<hr style="border: solid 0.5px gray; margin-top: 50px;">
-		<div class="wishListDiv">
-				<div class="wishProd col-md-3">
-					<img class="prodImg" src="../hm_img/product.png"/>
-					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-					<p id="prodPrice">4,200원</p>
-				</div>
-				<div class="wishProd col-md-3">
-					<img class="prodImg" src="../hm_img/product.png"/>
-					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-					<p id="prodPrice">4,200원</p>
-				</div>
-				<div class="wishProd col-md-3">
-					<img class="prodImg" src="../hm_img/product.png"/>
-					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-					<p id="prodPrice">4,200원</p>
-				</div>
-				<div class="wishProd col-md-3">
-					<img class="prodImg" src="../hm_img/product.png"/>
-					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-					<p id="prodPrice">4,200원</p>
-				</div>
-				<div class="wishProd col-md-3">
-					<img class="prodImg" src="../hm_img/product.png"/>
-					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-					<p id="prodPrice">4,200원</p>
-				</div>
-				<div class="wishProd col-md-3">
-					<img class="prodImg" src="../hm_img/product.png"/>
-					<p id="prodName"><input type="checkbox" /><br/>[12/27생산] 가장맛있는시간30일 스마트 발란스 시니어 500g</p>
-					<p id="prodPrice">4,200원</p>
-				</div>
-		</div>
-		<hr style="border: solid 0.5px gray;">
-		<button id="selectProdDel" type="button">선택상품 삭제</button>
+		<%@include file="semi_Mypage_WishList.jsp" %>
 	</c:if>
 	
 	
@@ -548,27 +445,7 @@ function delMember(){
 		$(".subTab:eq(1)").show();
 		$("#top_comment").html("Home>Mypage>내 게시글");
 	</script>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
-			<h4 style="font-weight: bold; margin-top: 40px;">내 게시글</h4>
-				<thead class="hm_thead">
-					<tr>
-						<th>NO.</th>
-						<th>BOARD</th>
-						<th>SUBJECT</th>
-						<th>DATE</th>
-						<th>HITS</th>
-					</tr>
-				</thead>
-				<tbody class="hm_tbody">
-					<tr>
-						<td>1</td>
-						<td>게시판</td>
-						<td>제목제목제목제목</td>
-						<td>2019-11-19</td>
-						<td>19</td>
-					</tr>
-				</tbody>
-			</table>
+		<%@include file="semi_Mypage_MyPost.jsp" %>	
 	</c:if>
 	
 	<!-- 나의 반려동물 정보 -->
@@ -580,60 +457,22 @@ function delMember(){
 		$(".subTab:eq(2)").show();
 		$("#top_comment").html("Home>Mypage>반려동물 정보");
 	</script>
-		<div style="border-top: solid 1px black; border-bottom: solid 1px black; width: 500px; text-align: center; margin: 50px auto; padding: 10px;">
-		<span style="font-size: 13pt;">[이름]님께서 등록한 반려 동물은 <strong style="color: #da291c; font-size: 15pt;">총[마리수]</strong> 입니다.</span>
-		</div>
-		
-		<div class="myPetInfoDiv" >
-			<div class="mypetInfo col-md-3">
-			<table>
-			<tr><td colspan="2">
-				<img src="../hm_img/mypet.png" style="border-radius: 100%;">
-				<p class="myPetTxt">이름: [반려동물이름]</p>
-				<p class="myPetTxt">견종: [견종]</p>
-				<p class="myPetTxt">체중: [체중]kg</p>
-				<p class="myPetTxt">성별: [성별]</p>
-				<p class="myPetTxt">생년: [생년월일]</p>
-			</tr></td>
-			<tr>
-				<td style="width: 50%;"><button class="myPetBtn" type="button">수정</button></td>
-				<td style="width: 50%;"><button class="myPetBtn" type="button">삭제</button></td>
-			</tr>
-			</table>
-			</div>
-		
-			<div class="mypetInfo col-md-3" style="padding-top: 80px;">
-				<img src="../hm_img/addPetimg.png">
-			</div>
-		</div>
+		<%@include file="semi_Mypage_MyPet.jsp" %>	
 	</c:if>
 	
 	
 	<!-- 회원탈퇴 -->
 	<c:if test="${param.tabMenu eq 11}">
-	<script type="text/javascript">
-		$("#subtabli11 > a").addClass('subtabClick');
-		$(".subTab").hide();
-		$("#tab3").addClass("tabClick")
-		$(".subTab:eq(2)").show();
-		$("#top_comment").html("Home>Mypage>회원탈퇴");
-	</script>
-	
-	<h1 class="hm_h1" style="margin-bottom: 20px; margin-top: 100px;">회원정보 탈퇴신청</h1>
-	<p class="ptxt">
-	저희 쇼핑몰의 부족했던 점과 아쉬웠던 점을 적어주십시오. 더 좋은 모습으로 발전하도록 최선을 다하겠습니다. <br/>
-	앞으로 더 나은 모습으로 고객님을 다시 만날 수 있도록 노력하겠습니다. 그동안 이용해주신 것을 진심으로 감사드립니다. <br />
-	</p>
-	<p class="ptxt" style="color: black;">탈퇴 사유를 적어주시면 쇼핑몰 운영에 적극 반영하겠습니다.</p>
-	
-	<textarea class="input_textarea" rows="10" cols="70"></textarea>
-	
-	<div id="btnArea">
-		<a class="btn delUserBtn" id="delUserBtn">회원탈퇴</a>
-		<a class="btn cancelBtn" id="cancelBtn" href="javascript:history.back()">취소하기</a>
-	</div>
+		<script type="text/javascript">
+			$("#subtabli11 > a").addClass('subtabClick');
+			$(".subTab").hide();
+			$("#tab3").addClass("tabClick")
+			$(".subTab:eq(2)").show();
+			$("#top_comment").html("Home>Mypage>회원탈퇴");
+		</script>
+		<%@include file="semi_Mypage_DelUser.jsp" %>	
 			
-	</c:if>
+		</c:if>
 </body>
 
 

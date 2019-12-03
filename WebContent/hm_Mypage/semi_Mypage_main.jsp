@@ -103,6 +103,9 @@ li{
 	padding-bottom: 30px;
 }
 
+.hm_a{ text-decoration: none; color: black;}
+.hm_a:hover{ text-decoration: none; color: #9d6849; }
+
 .subtabli{
 	display: inline-block;
 	margin: 5px 10px;
@@ -136,8 +139,6 @@ li{
 	padding-top: 20px;
 }
 
-a{ text-decoration: none; color: black;}
-a:hover{ text-decoration: none; color: #9d6849; }
 
 
 </style>
@@ -183,28 +184,28 @@ $(document).ready(function(){
 			    </tr>
 			    <tr >
 				    <td>
-				    	<a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=1">
+				    	<a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=1">
 					    <p id="bottom_img"><img src="../hm_img/orderList.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 						주문<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 				    	</a>
 				    </td>
 				    <td>
-				    	<a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=2">
+				    	<a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=2">
 					    <p id="bottom_img"><img src="../hm_img/reserve.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    적립금<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 					    </a>
 					</td>
 				    <td>
-					    <a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=3">
+					    <a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=3">
 					    <p id="bottom_img"><img src="../hm_img/point.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    포인트(삭제)<br/>
 					    <strong style="color: #ff4800;">0점</strong>
 					    </a>
 					</td>
 				    <td>
-					    <a class="leftMenu" href="semi_Mypage_Myshopping.jsp?tabMenu=4">
+					    <a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=4">
 					    <p id="bottom_img"><img src="../hm_img/coupon.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    쿠폰(삭제)<br/>
 					    <strong style="color: #ff4800;">0개</strong>
@@ -219,29 +220,7 @@ $(document).ready(function(){
   
   <div id="recentlyOrderList">
   	<!-- 최근주문내역 -->
-	<h4 style="font-weight: bold; margin-top: 40px;">최근 주문내역</h4>
-			<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
-				<thead class="hm_thead">
-					<tr>
-						<th>번호</th>
-						<th>주문번호</th>
-						<th>상품명</th>
-						<th>결제금액</th>
-						<th>주문일자</th>
-						<th>상태</th>
-					</tr>
-				</thead>
-				<tbody class="hm_tbody">
-					<tr>
-						<td>John</td>
-						<td>Doe</td>
-						<td>john@example.com</td>
-						<td>test</td>
-						<td>test</td>
-						<td>test</td>
-					</tr>
-				</tbody>
-			</table>
+	<%@include file="semi_Mypage_recentlyOrder.jsp" %>
   </div>
  </div>
  	
