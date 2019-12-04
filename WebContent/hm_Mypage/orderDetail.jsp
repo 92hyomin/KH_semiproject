@@ -1,41 +1,175 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
 <style type="text/css">
-#container{
+#tab_menu{
+	margin-bottom: 25px;
+}
+
+td.tab{
+	border: solid 1px silver;
+	width: 50%;
 	margin: 0 auto;
+	text-align: center;
+	height: 50px;
+	cursor: pointer;
+	color: silver;
 }
 
-h3, #top-txt{
-	display: inline-block;
+.orderTabTbl, .orderTbl{
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
 }
 
-top-area{
-	margin-top: 10px;
-	position: relative;
-}
-#top-txt{
+.orderTbl tr td{
+	border: solid 1px gray;
+	padding-left: 10px;
 	font-size: 9pt;
-	position: relative;
-	top: 30px;
-	float: right;
+}
+.orderTbl tr th{
+	border: solid 1px gray;
+	width: 15%;
+	background-color: #e6e6e6;
+	font-size: 10pt;
+	padding-left: 10px;
+}
+
+td.active{
+	color: black;
+	border-bottom: solid 3px black;
+}
+
+.tblText{
+	font-weight: bold;
+	font-size: 11pt;
 }
 </style>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.2.0.min.js" ></script>
 <script type="text/javascript">
+$(document).ready(function(){
+	$("#menu2").hide();
+	$(".tab").click(function(){
+		$(".tab").removeClass("active");
+		$(this).addClass("active");
+		$(".tabContent").hide();
+		var menubar = ("#menu"+($(this).index()+1));
+		$(menubar).show();
+	});
+});
 
 </script>
-
 <head>
-<meta charset="UTF-8">
-<title>ì£¼ë¬¸ì¡°íšŒ</title>
+<meta charset="EUC-KR">
+<title>ÁÖ¹®Á¶È¸</title>
 </head>
 <body>
-<div id="container">
-	<div id="top-area">
-		<h3>ì£¼ë¬¸ì •ë³´</h3>
-		<div id="top-txt"><span>[ì´ë¦„]</span>ë‹˜ê»˜ì„œ <span>[ë‚ ì§œ]</span>ì— ì£¼ë¬¸í•˜ì‹  ë‚´ì—­ì…ë‹ˆë‹¤.</div>
+<div id="topArea" style="margin-bottom: 10px;">
+	<div style="float: left;">
+		<span style="font-weight: bold; font-size: 16pt;">ÁÖ¹®Á¤º¸</span>
+	</div>
+		<div style="text-align: right; padding-top: 10px;">
+		<span style="font-size: 9pt;"><strong id="name">[ÀÌ¸§]</strong>´Ô²²¼­ <strong id="date">[³¯Â¥]</strong>¿¡ ÁÖ¹®ÇÏ½Å ³»¿ªÀÔ´Ï´Ù</span>
 	</div>
 </div>
+
+	<div id="tab_menu">
+		<table class="orderTabTbl">
+		<tr style="border: solid 1px red;">
+			<td class="tab active" >ÁÖ¹®»ó¼¼³»¿ª</td>
+			<td class="tab" >»óÇ°ÈÄ±âµî·Ï</td>
+		</tr>
+		</table>
+	</div>
+	
+	<div class="tabContent" id="menu1" >
+	
+		<span class="tblText">ÁÖ¹®ÀÚ</span>
+		<table class="orderTbl" style="text-align: left;">
+			<tr>
+				<th>ÁÖ¹®¹øÈ£</th>
+				<td>201912040001</td>
+				<th>ÁÖ¹®ÀÏÀÚ</th>
+				<td>2019.12.04</td>
+			</tr>
+			<tr>
+				<th>ÁÖ¹®ÀÚ</th>
+				<td>[ÀÌ¸§]</td>
+				<th>ÁÖ¹®¼­ ÀÔ±İÇöÈ²</th>
+				<td>ÀÔ±İ¿Ï·á</td>
+			</tr>
+			<tr>
+				<th>ÁÖ¹®¸Ş¸ğ</th>
+				<td colspan="4">[¸Ş¸ğ]</td>
+			</tr>
+		</table>
+		<br/><br/>
+		
+		<span class="tblText">¹è¼ÛÁö</span>
+		<table class="orderTbl" style="text-align: left;">
+			<tr>
+				<th>¹è¼Û¹øÈ£</th>
+				<td>S-191204-0001</td>
+				<th>¼ÛÀå¹øÈ£</th>
+				<td>1234-5678</td>
+			</tr>
+			<tr>
+				<th>¼öÃëÀÎ</th>
+				<td>[¼öÃëÀÎÀÌ¸§]</td>
+				<th>¿¬¶ôÃ³</th>
+				<td>[¿¬¶ôÃ³]</td>
+			</tr>
+			<tr>
+				<th>ÁÖ¼Ò</th>
+				<td colspan="4">[ÁÖ¼Ò]</td>
+			</tr>
+			<tr>
+				<th>¹è¼Û¸Ş¼¼Áö</th>
+				<td colspan="4">[¸Ş¼¼Áö]</td>
+			</tr>
+		</table>
+		<br/><br/>
+		
+		<span class="tblText">ÁÖ¹®»óÇ°</span>
+		<table class="orderTbl">
+		<colgroup>
+			<col width="50px"/>
+			<col width="250px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+		</colgroup>
+		<thead>
+			<tr>
+				<th colspan="2">ÁÖ¹®»óÇ°Á¤º¸</th>
+				<th>»óÇ°º°ÁÖ¹®¹øÈ£</th>
+				<th>¼ö·®</th>
+				<th>°¡°İ</th>
+				<th>Àû¸³</th>
+				<th>Ã³¸®»óÅÂ</th>
+				<th>¹è¼Û¹øÈ£</th>
+			</tr>
+		</thead>
+			<tr>
+				<td><img alt="img" src="../hm_img/product.png" width="50px" height="50px"></td>
+				<td width="290px">´õ¸®¾ó ±×·¹ÀÎÇÁ¸® ¿Àºìº£ÀÌÅ©µå ¾î´úÆ® 50g X 3Á¾</td>
+				<td>201912040001</td>
+				<td>[¼ö·®]</td>
+				<td>[°¡°İ]</td>
+				<td>[Àû¸³±İ¾×]</td>
+				<td>»óÇ°ÁØºñ</td>
+				<td>S-191204-0001</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div class="tabContent" id="menu2" >
+		»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â»óÇ°ÈÄ±â
+	</div>
 </body>
 </html>
