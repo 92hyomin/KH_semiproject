@@ -134,25 +134,16 @@ $(document).ready(function(){
 		
 		<span class="tblText">주문상품</span>
 		<table class="orderTbl">
-		<colgroup>
-			<col width="50px"/>
-			<col width="250px"/>
-			<col width="100px"/>
-			<col width="100px"/>
-			<col width="100px"/>
-			<col width="100px"/>
-			<col width="100px"/>
-			<col width="100px"/>
-		</colgroup>
+		
 		<thead>
 			<tr>
-				<th colspan="2">주문상품정보</th>
-				<th>상품별주문번호</th>
-				<th>수량</th>
-				<th>가격</th>
-				<th>적립</th>
-				<th>처리상태</th>
-				<th>배송번호</th>
+				<th colspan="2" style="width:40%">주문상품정보</th>
+				<th style="width:15%">상품별주문번호</th>
+				<th style="width:6%">수량</th>
+				<th style="width:8%">가격</th>
+				<th style="width:8%">적립</th>
+				<th style="width:10%">처리상태</th>
+				<th style="width:12%">배송번호</th>
 			</tr>
 		</thead>
 			<tr>
