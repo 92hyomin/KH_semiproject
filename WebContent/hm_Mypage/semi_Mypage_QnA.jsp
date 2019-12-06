@@ -75,7 +75,15 @@ button{
 	margin: 20px 0;
 }
 
+#kakao-talk-channel-chat-button{
+	width: 80%;
+	margin: 0 auto;
+	
+}
 
+#kakaoDiv{
+	text-align: right;
+}
 </style>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -128,6 +136,21 @@ function goQnA(){
 		location.href="semi_Mypage_main.jsp";
 	}
 }
+
+window.kakaoAsyncInit = function () {
+    Kakao.Channel.createChatButton({
+      container: '#kakao-talk-channel-chat-button'
+    });
+  };
+
+  (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//developers.kakao.com/sdk/js/kakao.plusfriend.min.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'kakao-js-sdk'));
+  
 </script>
 
 <body>
@@ -135,12 +158,19 @@ function goQnA(){
 	<span id="top_comment">Home>Mypage>1:1문의</span><br>
 	<h1 class="hm_h1">1:1 문의하기</h1>
 	
+	<div id="kakaoDiv">
+	<div id="kakao-talk-channel-chat-button" data-channel-public-id="_BHggT" data-title="consult" data-size="small" data-color="yellow" data-shape="pc" data-support-multiple-densities="true"></div>	
+	</div>
+	
 	<div class="myQnA" style="border-top: solid 2px silver">
+	
 		<table class="myQnATbl tbl">
 			<colgroup>
 				<col style="width: 155px;">
 				<col style="width: auto;">
 			</colgroup>
+			
+			
 			<tbody>
 			
 			<tr>
