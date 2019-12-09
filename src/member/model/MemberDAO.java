@@ -35,7 +35,7 @@ public class MemberDAO implements InterMemberDAO {
 			try {
 				Context initContext = new InitialContext();
 				Context envContext  = (Context)initContext.lookup("java:/comp/env");
-				ds = (DataSource)envContext.lookup("jdbc/myoracle");		// jdbc/myoracle    /   jdbc/semidog
+				ds = (DataSource)envContext.lookup("jdbc/semidog");		// jdbc/myoracle    /   jdbc/semidog
 				aes = new AES256(key);
 				
 			} catch (NamingException e) {

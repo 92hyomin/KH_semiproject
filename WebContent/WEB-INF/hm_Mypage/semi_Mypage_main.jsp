@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@include file="../header_dog.jsp" %>
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -139,9 +140,16 @@ li{
 	padding-top: 20px;
 }
 
-
+#OrderDetailView{
+	border: solid 1px black;
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+	cursor: pointer;
+}
 
 </style>
+
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".subTab").hide();
@@ -157,7 +165,18 @@ $(document).ready(function(){
 		$(this).addClass("tabClick");
 	});
 	
+	$("#OrderDetailView").click(function(){
+		orderDetail();
+	});
+	
 });
+
+function orderDetail(){
+    var url = "/Semi_Team1/mypage/orderDetail.dog";
+    var name = "orderDetail";
+    var option = "width = 875px, height = 820px, location = no"
+    window.open(url, name, option);
+}
 </script>
 
 
@@ -175,7 +194,7 @@ $(document).ready(function(){
 					    <p id="gradetxt">[아이디]님은 <span style="color: #916b4a;">First Member</span>등급입니다.</p>
 					    <ul class="hm">
 					    <li id="infoli"><button id="myinfobtn" type="button">등급별 혜택</button></li>
-					    <li id="infoli"><button id="myinfobtn" type="button" onclick="location.href='passwordCheck.jsp'">회원정보수정</button></li>
+					    <li id="infoli"><button id="myinfobtn" type="button" onclick="location.href='<%= ctxPath %>/mypage/myInfoEdit.dog'">회원정보수정</button></li>
 					    </ul>
 				    </td>
 				    <td rowspan="2" style="background-color: #2d2926; color: white;">
@@ -185,33 +204,20 @@ $(document).ready(function(){
 			    </tr>
 			    <tr >
 				    <td>
-				    	<a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=1">
+				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/myshopping.dog?tabMenu=1">
 					    <p id="bottom_img"><img src="../hm_img/orderList.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 						주문<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 				    	</a>
 				    </td>
 				    <td>
-				    	<a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=2">
+				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/myshopping.dog?tabMenu=2">
 					    <p id="bottom_img"><img src="../hm_img/reserve.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    적립금<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 					    </a>
 					</td>
-				    <td>
-					    <a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=3">
-					    <p id="bottom_img"><img src="../hm_img/point.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
-					    포인트(삭제)<br/>
-					    <strong style="color: #ff4800;">0점</strong>
-					    </a>
-					</td>
-				    <td>
-					    <a class="leftMenu hm_a" href="semi_Mypage_Myshopping.jsp?tabMenu=4">
-					    <p id="bottom_img"><img src="../hm_img/coupon.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
-					    쿠폰(삭제)<br/>
-					    <strong style="color: #ff4800;">0개</strong>
-					    </a>
-				    </td>
+
 			    </tr>
 		    </table>
   		</div>
@@ -219,11 +225,32 @@ $(document).ready(function(){
 	
 	<%@include file="semi_Mypage_Submenu.jsp" %>
   
-  <div id="recentlyOrderList">
-  	<!-- 최근주문내역 -->
-	<%@include file="semi_Mypage_recentlyOrder.jsp" %>
-  </div>
- </div>
+<div id="recentlyOrderList">
+	<!-- 최근주문내역 -->
+	<table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
+	<thead class="hm_thead">
+		<tr>
+			<th>번호</th>
+			<th>주문번호</th>
+			<th>상품명</th>
+			<th>결제금액</th>
+			<th>주문일자</th>
+			<th>상태</th>
+		</tr>
+	</thead>
+	<tbody class="hm_tbody">
+		<tr>
+			<td>John</td>
+			<td>Doe</td>
+			<td>john@example.com</td>
+			<td>test</td>
+			<td>테스트</td>
+			<td><span id="OrderDetailView" onclick="orderDetail()">VIEW</span></td>
+		</tr>
+	</tbody>
+	</table>
+	 </div>
+	</div>
  	
 </body>
 

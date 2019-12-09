@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <style>
 #OrderDetailView{
 	border: solid 1px black;
@@ -19,12 +20,28 @@ $(document).ready(function(){
 });
 
 function orderDetail(){
-        var url = "orderDetail.jsp";
+        var url = "/Semi_Team1/mypage/orderDetail.dog";
         var name = "orderDetail";
         var option = "width = 875px, height = 820px, location = no"
         window.open(url, name, option);
 }
 </script>
+
+<jsp:include page="../header_dog.jsp"/>
+<link rel="stylesheet" type="text/css" href="/Semi_Team1/css/hm/style.css" />
+ 
+<div id="login_container">
+<h1 class="hm_h1">마이페이지</h1>
+<jsp:include page="semi_Mypage_Submenu.jsp"/>
+
+<script type="text/javascript">
+	$("#subtabli1 > a").addClass('subtabClick');
+	$(".subTab").hide();
+	$("#tab1").addClass("tabClick")
+	$(".subTab:first").show();
+	$("#top_comment").html("Home>Mypage>최근 주문내역");
+</script>
+
 <h4 style="font-weight: bold; margin-top: 40px;">최근 주문내역</h4>
 <table class="table" style="border-top: solid 2px gray; border-bottom: solid 1px gray;">
 	<thead class="hm_thead">
@@ -48,3 +65,5 @@ function orderDetail(){
 		</tr>
 	</tbody>
 </table>
+</div>
+<jsp:include page="../footer_dog.jsp"/>

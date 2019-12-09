@@ -1,18 +1,16 @@
-package main.controller;
+package mypage.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class MainPageController extends AbstractController{
+public class PasswordCheckAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/main/main.jsp");
-		
-	} // end of execute ----------------------
+		super.setViewPage("/WEB-INF/hm_Mypage/passwordCheck.jsp");
+	}
 
-} // end of class --------------------------------------------
+}

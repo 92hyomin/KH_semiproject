@@ -131,7 +131,7 @@ function goEdit(){
 	}
 	else{
 		alert("정보수정이 완료되었습니다.");
-		location.href="semi_Mypage_main.jsp";
+		location.href="<%= ctxPath %>/mypage/myshopping.dog";
 	}
 }
 </script>
@@ -266,7 +266,7 @@ function goEdit(){
 	
 	<div class="petInfo">
 	<span style="margin: 40px 0 0 0; font-size: 15pt; font-weight: bold;">나의 반려동물 정보</span>
-	<img id="petImg" onclick="location.href='http://localhost:9090/Semi_Team1/semi_Mypage_Myshopping.jsp?tabMenu=10'" src="../hm_img/petinfo.png" >
+	<img id="petImg" onclick="location.href='<%= ctxPath %>/mypage/myshopping.dog?tabMenu=10'" src="../hm_img/petinfo.png" >
 	<hr style="border: solid 1px gray; margin: 0;">
 	<table class="myinfoTbl tbl">
 		<colgroup>
