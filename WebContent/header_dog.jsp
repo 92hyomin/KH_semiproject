@@ -268,7 +268,7 @@
   				</c:if>
   				<c:if test="${ sessionScope.loginuser != null }">
   					<li><a href="">LOGOUT</a></li>
-  					<li><a href="">MYPAGE</a></li>
+  					<li><a href="<%= ctxPath %>/mypage/mypageMain.dog">MYPAGE</a></li>
   				
   				</c:if>
   				

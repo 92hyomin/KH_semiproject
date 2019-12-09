@@ -476,4 +476,52 @@ nocache;
 
 select * from user_all_tables where lower(table_name) like '%tbl_dog%'; 
 
+select * from TBL_DOG_PET;
+select * from TBL_DOG_REVIEW
+select * from TBL_DOG_QNA
+select * from TBL_DOG_RESERVE
+select * from tbl_dog_member
 
+ALTER TABLE TBL_DOG_RESERVE
+ADD (CONTENT VARCHAR2(50));
+
+
+
+update TBL_DOG_RESERVE set content='회원가입' where reserve_seq='7'
+
+ select member_seq, user_id, user_name, user_birthday, user_gender, 
+ postcode, addr1, addr2, phone, email, user_sns, alert_email, alert_sms 
+ , to_char(registerday, 'yyyy-mm-dd hh24:mi:ss') as registerday 
+ , to_char(pwchangeday, 'yyyy-mm-dd hh24:mi:ss') as pwchangeday 
+ , to_char(lastloginday, 'yyyy-mm-dd hh24:mi:ss') as lastloginday 
+ , trunc( months_between(sysdate, pwchangeday) ) AS pwdchangegap 
+ , trunc( months_between(sysdate, lastloginday) ) AS lastlogindategap 
+ from tbl_dog_member;
+                    
+desc tbl_dog_member
+select * from user_sequences;
+
+insert into tbl_dog_member(member_seq, user_id, user_name, user_pw, email) values(SEQ_DOG_MEMBER.nextval, 'hmtest', '최효민', 'test', 'gyals0367@naver.com');
+select * from tbl_dog_member;
+
+desc TBL_DOG_RESERVE;
+select * from TBL_DOG_RESERVE;
+
+update TBL_DOG_RESERVE set reserve_minus='-200' where reserve_seq='16'
+
+insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '2000', sysdate, '테스트3');
+insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '3000', sysdate, '테스트4');
+insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '4000', sysdate, '테스트5');
+insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '1500', sysdate, '테스트6');
+insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '200', sysdate, '테스트7');
+insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_minus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '200', sysdate, '테스트사용');
+
+--적립금 내역
+select usedate, content, NVL(reserve_plus,reserve_minus) as reserve
+from TBL_DOG_RESERVE
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+
+--적립금 총액
+select sum(NVL(reserve_plus,0)+NVL(reserve_minus,0)) as total
+from TBL_DOG_RESERVE
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
