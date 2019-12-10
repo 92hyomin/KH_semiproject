@@ -4,13 +4,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	/* $(".tabMenu").click(function(){
+	$(".tabMenu").click(function(){
 		$(".subTab").hide();
 		$(".tabMenu").removeClass("tabClick");
 		var activeTab = $(this).attr("rel");
         $("#" + activeTab).show()
 		$(this).addClass("tabClick");
-	}); */
+	});
 	
 });
 
@@ -27,6 +27,7 @@ $(document).ready(function(){
 	    <ul class="hm" id="subtab1" style="padding: 0; ">
 		    <li id="subtabli1" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/recentlyOrder.dog">주문목록/배송 조회</a></li><span>|</span> 
 		    <li id="subtabli2" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/reserve.dog">적립금 내역</a></li>
+		    
 	    </ul>
     </div>
     

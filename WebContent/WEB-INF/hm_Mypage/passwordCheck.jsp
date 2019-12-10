@@ -105,22 +105,22 @@ $(document).ready(function(){
 			$(this).css("color","#231f20");
 		});
 	
-	$("#submitBtn").click(function(){
-		var passwd = $("#inputPasswd").val().trim();
-		
-		if(passwd==""){
-			alert("패스워드를 입력하세요");
-			$("#inputPasswd").focus();
-		}
-		else{
-			location.href="semi_Mypage_MyInfoEdit.jsp"
-			////////////////
-			/* Submit작업 */
-			////////////////
-		}
-		
-	});
 });
+
+function goCheck(){
+	var passwd = $("#inputPasswd").val().trim();
+	
+	if(passwd==""){
+		alert("패스워드를 입력하세요");
+		$("#inputPasswd").focus();
+	}
+	else{
+		var frm = document.passcheckFrm;
+		frm.method = "POST";
+		frm.action = "passwordCheck.up";
+		frm.submit();
+	}
+}
 
 </script>
 <div id="login_container">
@@ -134,20 +134,25 @@ $(document).ready(function(){
 	</p>
 	<hr style="border: solid 0.5px silver;" />
 	
-	<table class="tbl">
-		<tr>
-			<td><span class="frmtxt">ID</span>	</td>
-			<td><span class="frminput">92hyomin</span>	</td>
-		</tr>
-		<tr>
-			<td><span class="frmtxt">PASSWORD</span></td>
-			<td><input id="inputPasswd" type="password" placeholder="ENTER PASSWORD" /></td>
-		</tr>
-	</table>	
+	<form id="passcheckFrm">
+		<table class="tbl">
+		
+			<tr>
+				<td><span class="frmtxt">ID</span>	</td>
+				<td><span class="frminput" name="userid">92hyomin</span>	</td>
+			</tr>
+			<tr>
+				<td><span class="frmtxt">PASSWORD</span></td>
+				<td><input id="inputPasswd" type="password" placeholder="ENTER PASSWORD" name="passwd"/></td>
+			</tr>
+		</table>	
+	</form>
+	
 	<hr style="border: solid 0.5px silver; margin-bottom: 40px;" />
 	
 	<div id="btnArea">
-		<a class="btn submitBtn" id="submitBtn">확인</a>
+		
+		<a class="btn submitBtn" type="button" id="submitBtn" onclick="goCheck()">확인</a>
 		<a class="btn cancelBtn" id="cancelBtn" href="javascript:history.back()">취소</a>
 	</div>
 </div>

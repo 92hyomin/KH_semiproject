@@ -1,11 +1,13 @@
 package mypage.model;
 
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
@@ -55,17 +57,37 @@ public class MypageDAO implements InterMypageDAO {
 			
 		} // end of close -----------------------
 
+		//적립금 내역 조회
 		@Override
-		public List<ReserveVO> searchReserve(String email) throws SQLException{
+		public List<ReserveVO> searchReserve(HashMap<String, String> paraMap) throws SQLException{
 			List<ReserveVO> reserveList = null;
+			
+			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
+			int sizePerPage = Integer.parseInt(paraMap.get("sizePerPage"));
+			String email = paraMap.get("email");
 			
 			try {
 				conn = ds.getConnection();
-				String sql = "select usedate, content, NVL(reserve_plus,reserve_minus) as reserve\r\n" + 
+				String sql = "select RNO, usedate, content, reserve\r\n" + 
+						"from\r\n" + 
+						"(\r\n" + 
+						"select rownum as RNO,  usedate, content, reserve\r\n" + 
+						"from\r\n" + 
+						"(\r\n" + 
+						"select usedate, content, NVL(reserve_plus,reserve_minus) as reserve\r\n" + 
 						"from TBL_DOG_RESERVE\r\n" + 
-						"where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='";
+						"where fk_email = ? \r\n" + 
+						"order by usedate desc\r\n" + 
+						")V\r\n" + 
+						")T\r\n" + 
+						"where T.RNO between ? and ? ";
 				
 				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, aes.encrypt(email));
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage-1));
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage));
+				
 				rs = pstmt.executeQuery();
 				
 				int cnt = 0;
@@ -82,11 +104,71 @@ public class MypageDAO implements InterMypageDAO {
 				}
 				
 				
-			} finally {
+			} catch(UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}
+			finally {
 				close();
 			}
 			
 			return reserveList;
+		}
+
+		@Override
+		public int getTotalPageReserve(HashMap<String, String> paraMap) throws SQLException {
+			int totalPage = 0;
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = "select ceil(count(*)/?) as totalPage\r\n" + 
+						"from TBL_DOG_RESERVE\r\n" + 
+						"where fk_email = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, paraMap.get("sizePerPage"));
+				pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+				
+				rs = pstmt.executeQuery();
+				rs.next();
+				totalPage = Integer.parseInt(rs.getString("totalPage"));
+				
+			}catch(UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return totalPage;
+		}
+
+		@Override
+		public String getTotalReserve(String email) throws SQLException {
+			String totalReserve = "";
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = "select sum(NVL(reserve_plus,0)+NVL(reserve_minus,0)) as totalReserve \r\n" + 
+						"from TBL_DOG_RESERVE\r\n" + 
+						"where fk_email = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, aes.encrypt(email));
+				
+				rs = pstmt.executeQuery();
+				rs.next();
+				totalReserve = rs.getString("totalReserve");
+				
+			}catch(UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return totalReserve;
 		}
 		
 			

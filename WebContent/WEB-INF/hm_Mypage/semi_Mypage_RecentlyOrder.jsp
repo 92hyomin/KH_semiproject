@@ -11,6 +11,9 @@
 }
 </style>
 
+<jsp:include page="../header_dog.jsp"/>
+<link rel="stylesheet" type="text/css" href="/Semi_Team1/css/hm/style.css" />
+ 
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#OrderDetailView").click(function(){
@@ -27,9 +30,6 @@ function orderDetail(){
 }
 </script>
 
-<jsp:include page="../header_dog.jsp"/>
-<link rel="stylesheet" type="text/css" href="/Semi_Team1/css/hm/style.css" />
- 
 <div id="login_container">
 <h1 class="hm_h1">마이페이지</h1>
 <jsp:include page="semi_Mypage_Submenu.jsp"/>

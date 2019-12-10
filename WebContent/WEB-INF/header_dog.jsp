@@ -277,7 +277,7 @@
   				<c:if test="${ sessionScope.loginuser != null }">
   					<li>${ sessionScope.loginuser.user_name } 님 환영합니다<li>
   					<li><a href="javascript:goLogout();">LOGOUT</a></li>
-  					<li><a href="">MYPAGE</a></li>
+  					<li><a href="javascript:location.href= '<%= ctxPath%>/mypage/mypageMain.dog'">MYPAGE</a></li>
   				
   				</c:if>
   				

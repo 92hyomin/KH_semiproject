@@ -33,7 +33,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td style="width: 50%;"><button class="myPetBtn" type="button">수정</button></td>
+		<td style="width: 50%;"><button class="myPetBtn" type="button" onclick="/Semi_Team1/mypage/addMypet.dog">수정</button></td>
 		<td style="width: 50%;"><button class="myPetBtn" type="button" style="border-left: hidden;">삭제</button></td>
 	</tr>
 	</table>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="../header_dog.jsp" %>
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
@@ -191,10 +192,11 @@ function orderDetail(){
 			    <tr>
 				    <td class="myinfo_left" colspan="4" >
 					    <p id="gradeimg"><img src="../hm_img/gradeimg.gif" style="border-radius: 100%;"/></p>
-					    <p id="gradetxt">[아이디]님은 <span style="color: #916b4a;">First Member</span>등급입니다.</p>
+					    <p id="gradetxt" style="padding-bottom: 5px;"><span style="color: #916b4a; font-weight: bold;">[${requestScope.name}]</span>님 환영합니다.</p>
+					    <p id="gradetxt" style="font-size: 9pt; padding-top: 0;">마지막 로그인: ${lastLogin}</p>
 					    <ul class="hm">
-					    <li id="infoli"><button id="myinfobtn" type="button">등급별 혜택</button></li>
-					    <li id="infoli"><button id="myinfobtn" type="button" onclick="location.href='<%= ctxPath %>/mypage/myInfoEdit.dog'">회원정보수정</button></li>
+					    <li id="infoli"><button id="myinfobtn" type="button">등급별 혜택(삭제)</button></li>
+					    <li id="infoli"><button id="myinfobtn" type="button" onclick="location.href='/Semi_Team1/mypage/passwordCheck.dog'">회원정보수정</button></li>
 					    </ul>
 				    </td>
 				    <td rowspan="2" style="background-color: #2d2926; color: white;">
@@ -204,18 +206,19 @@ function orderDetail(){
 			    </tr>
 			    <tr >
 				    <td>
-				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/myshopping.dog?tabMenu=1">
+				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/recentlyOrder.dog">
 					    <p id="bottom_img"><img src="../hm_img/orderList.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 						주문<br/>
 					    <strong style="color: #ff4800;">0원</strong>
 				    	</a>
 				    </td>
 				    <td>
-				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/myshopping.dog?tabMenu=2">
+				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/reserve.dog">
 					    <p id="bottom_img"><img src="../hm_img/reserve.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 					    적립금<br/>
-					    <strong style="color: #ff4800;">0원</strong>
+					    <strong style="color: #ff4800;"><fmt:formatNumber maxFractionDigits="3" value="${totalReserve}" />원</strong>
 					    </a>
+					    
 					</td>
 
 			    </tr>

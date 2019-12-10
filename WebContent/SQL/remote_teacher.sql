@@ -476,16 +476,10 @@ nocache;
 
 select * from user_all_tables where lower(table_name) like '%tbl_dog%'; 
 
-select * from TBL_DOG_PET;
-select * from TBL_DOG_REVIEW
-select * from TBL_DOG_QNA
-select * from TBL_DOG_RESERVE
-select * from tbl_dog_member
+
 
 ALTER TABLE TBL_DOG_RESERVE
 ADD (CONTENT VARCHAR2(50));
-
-
 
 update TBL_DOG_RESERVE set content='회원가입' where reserve_seq='7'
 
@@ -516,12 +510,55 @@ insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, conten
 insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '200', sysdate, '테스트7');
 insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_minus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '200', sysdate, '테스트사용');
 
+
 --적립금 내역
 select usedate, content, NVL(reserve_plus,reserve_minus) as reserve
 from TBL_DOG_RESERVE
-where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+order by usedate desc;
+
 
 --적립금 총액
-select sum(NVL(reserve_plus,0)+NVL(reserve_minus,0)) as total
+select sum(NVL(reserve_plus,0)+NVL(reserve_minus,0)) as totalReserve
 from TBL_DOG_RESERVE
 where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+
+----------------------테스트 데이터 생성
+create or replace procedure pcd_TBL_DOG_RESERVE
+(p_plus IN number
+,p_content  IN varchar2 )
+is begin
+    for i in 1..100 loop
+        insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) 
+	values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', p_plus , sysdate, p_content||i);
+    end loop;
+end pcd_TBL_DOG_RESERVE;
+
+exec pcd_TBL_DOG_RESERVE('100','구매 적립');
+---------------------------------------------
+
+----------------페이징 처리용 페이지번호
+select RNO, usedate, content, reserve
+from
+(
+select rownum as RNO,  usedate, content, reserve
+from
+(
+select usedate, content, NVL(reserve_plus,reserve_minus) as reserve
+from TBL_DOG_RESERVE
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+order by usedate desc
+)V
+)T
+where T.RNO between 11and 20;
+
+----------------전체 페이지 갯수 구하기
+select ceil(count(*)/10) as totalPage
+from TBL_DOG_RESERVE
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+
+select * from TBL_DOG_QNA;
+
+desc TBL_DOG_ORDER;
+
+desc TBL_DOG_ORDERDETAIL;
