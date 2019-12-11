@@ -101,26 +101,48 @@ $(document).ready(function(){
 		}).open();
 	});
 	
-	$("#mailSite").bind("change",function(){
-		if( $(this).val() != 0){
-			var emailSite = $(this).val();
-			$("#email2").val(emailSite);
-		}
-		else{
-			$("#email2").val("");
-			$("#email2").focus();
-		}
-	});
+	
+	if( "${ gender == 1}" ){
+		$("#M").attr('checked','checked');
+	}
+	else{
+		$("#F").attr('checked','checked');
+	}
+	
+	if( "${ alert_email == 1}" ){
+		$("#emailreceiveY").attr('checked','checked');
+	}
+	else{
+		$("#emailreceiveN").attr('checked','checked');
+	}
+	
+	if( "${ alert_sms == 1}" ){
+		$("#smsreceiveY").attr('checked','checked');
+	}
+	else{
+		$("#smsreceiveN").attr('checked','checked');
+	}
 	
 });
 
+
 function goEdit(){
+	var user_pw = $("#passwd1").val();
+	var regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+	var bool = regExp.test(user_pw);
+	
 	var passwd1 = $("#passwd1").val().trim();
 	var passwd2 = $("#passwd2").val().trim();
+	
 	if(passwd1==""){
 		alert("패스워드를 입력하세요");
 		$("#passwd1").focus();
 	}
+	
+	else if(!bool){
+		alert("비밀번호는 최소 8자리에 숫자,영문자,특수문자가 각 1개씩 포함되어야 합니다."); 
+	}
+	
 	else if(passwd2==""){
 		alert("패스워드 확인을 입력하세요");
 		$("#passwd2").focus();
@@ -130,8 +152,10 @@ function goEdit(){
 		$("#passwd1").focus();
 	}
 	else{
-		alert("정보수정이 완료되었습니다.");
-		location.href="<%= ctxPath %>/mypage/myshopping.dog";
+		var frm = document.editInfoFrm;
+		frm.method = "POST";
+		frm.action = "myInfoEdit.dog";
+		frm.submit();
 	}
 }
 </script>
@@ -142,6 +166,7 @@ function goEdit(){
 	<h1 class="hm_h1">회원정보 입력</h1>
 	
 	<div class="myinfo" style="border-top: solid 2px silver">
+	<form name="editInfoFrm">
 		<table class="myinfoTbl tbl">
 			<colgroup>
 				<col style="width: 155px;">
@@ -151,12 +176,12 @@ function goEdit(){
 			
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>이름</div></th>
-				<td><div class="col-cell"><input class="myinfo_input" type="text" value="최효민" disabled ></div></td>
+				<td><div class="col-cell"><input class="myinfo_input" type="text" id="inputName" value="${userName}" disabled ></div></td>
 			</tr>
 			
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>아이디</div></th>
-				<td><div class="col-cell"><span>92hyomin</span></div></td>
+				<td><div class="col-cell"><span>${userid}</span></div></td>
 			</tr>
 			
 			<tr>
@@ -174,22 +199,25 @@ function goEdit(){
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>생년월일</div></th>
 				<td><div class="col-cell">
-				<select style="width:100px; height: 30px;" disabled value="1992"><option>1992</option></select> 년
-				<select style="width:50px; height: 30px;" disabled value="01"><option>01</option></select> 월
-				<select style="width:50px; height: 30px;" disabled value="01"><option>01</option></select> 일
+				<select style="width:100px; height: 30px;" disabled value="${birthY}"><option>${birthY}</option></select> 년
+				<select style="width:50px; height: 30px;" disabled value="${birthM}"><option>${birthM}</option></select> 월
+				<select style="width:50px; height: 30px;" disabled value="${birthD}"><option>${birthD}</option></select> 일
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="radio" class="gender" value="1" checked />남
-				&nbsp;&nbsp;&nbsp;
-				<input type="radio" class="gender" value="2" />여
+
+					<input type="radio" class="gender" id="M" name="gender" value="1" disabled /><label for="M">남</label>
+					&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="gender" id="F" name="gender" value="2" disabled /><label for="F">여</label>
+
+				
 				</div></td>
 			</tr>
 			
 			<tr>
-				<th><div class="head-cell"><span class="require">* </span>우편번호</div></th>
+				<th><div class="head-cell">　우편번호</div></th>
 				<td><div class="col-cell">
-				<input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver;" id="post1" name="post1" size="6" maxlength="3" disabled />
+				<input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver;" id="post1" name="post1" size="6" maxlength="3" readonly />
 			    &nbsp;-&nbsp;
-			    <input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver; " id="post2" name="post2" size="6" maxlength="3" disabled />&nbsp;&nbsp;
+			    <input type="text" style="width: 80px; height: 30px; background-color: white; border: solid 1px silver; " id="post2" name="post2" size="6" maxlength="3" readonly />&nbsp;&nbsp;
 			    <!-- 우편번호 찾기 -->
 			    <img id="zipcodeSearch" src="../hm_img/b_zipcode.gif" style="vertical-align: middle;" />
 			    <span class="error error_post">우편번호 형식이 아닙니다.</span>
@@ -197,33 +225,33 @@ function goEdit(){
 			</tr>
 			
 			<tr>
-				<th><div class="head-cell"><span class="require">* </span>집주소</div></th>
+				<th><div class="head-cell">　집주소</div></th>
 				<td><div class="col-cell">
-				   <input type="text" id="addr1" class="address" name="addr1" style="width: 90%; height: 30px; background-color: white; border: solid 1px silver;" disabled />
+				   <input type="text" id="addr1" class="address" name="addr1" style="width: 90%; height: 30px; background-color: white; border: solid 1px silver;" readonly />
 				</div></td>
 			</tr>
 			
 			<tr>
-				<th><div class="head-cell"><span class="require">* </span>상세주소</div></th>
+				<th><div class="head-cell">　상세주소</div></th>
 				<td><div class="col-cell">
 				   <input type="text" id="addr2" class="address" name="addr2" style="width: 90%; height: 30px;" />
 				</div></td>
 			</tr>
 			
 			<tr>
-				<th><div class="head-cell"><span class="require">* </span>연락처</div></th>
-				<td><div class="col-cell"><input class="myinfo_input" id="tel" name="tel" type="text">
-				</div></td>
-			</tr>
-			
-			<tr>
-				<th><div class="head-cell"><span class="require">* </span>휴대폰</div></th>
+				<th><div class="head-cell">　휴대폰</div></th>
 				<td><div class="col-cell"><input class="myinfo_input" id="phone" name="phone" type="text">
 				</div></td>
 			</tr>
 			
 			<tr>
 				<th><div class="head-cell"><span class="require">* </span>이메일</div></th>
+				<td>
+					<div class="col-cell"><span>${email}</span></div>
+					<input type="hidden" name="email" value="${email}" />
+				</td>
+				
+				<%-- <th><div class="head-cell">　이메일</div></th>
 				<td><div class="col-cell">
 				<input class="email" id="email1" name="email1" type="text" style="width: 150px; height: 30px;">
 				@
@@ -240,31 +268,32 @@ function goEdit(){
 				<option value="gmail.com">gmail.com</option>
 				<option value="netian.com">netian.com</option>
 				</select>
-				</div></td>
+				</div></td> --%>
 			</tr>
 			
 			<tr>
 				<th><div class="head-cell">뉴스메일</div></th>
 				<td><div class="col-cell">
-				<input type="radio" id="emailreceiveY" name="emailreceive" value="Y" checked /><label for="emailreceiveY">받습니다</label>
+				<input type="radio" id="emailreceiveY" name="emailreceive" value="1" checked /><label for="emailreceiveY">받습니다</label>
 				&nbsp;&nbsp;&nbsp;
-				<input type="radio" id="emailreceiveN" name="emailreceive" value="N" /><label for="emailreceiveN">받지 않습니다</label>
+				<input type="radio" id="emailreceiveN" name="emailreceive" value="0" /><label for="emailreceiveN">받지 않습니다</label>
 				</div></td>
 			</tr>
 			
 			<tr>
 				<th><div class="head-cell">SMS안내</div></th>
 				<td><div class="col-cell">
-				<label><input type="radio" id="smsreceiveY" name="smsreceive" value="Y" checked /><label for="smsreceiveY">받습니다</label>
+				<label><input type="radio" id="smsreceiveY" name="smsreceive" value="1" checked /><label for="smsreceiveY">받습니다</label>
 				&nbsp;&nbsp;&nbsp;
-				<label><input type="radio" id="smsreceiveN" name="smsreceive" value="N"/><label for="smsreceiveN">받지 않습니다</label>
+				<label><input type="radio" id="smsreceiveN" name="smsreceive" value="0"/><label for="smsreceiveN">받지 않습니다</label>
 				</div></td>
 			</tr>
 			</tbody>
 		</table>
+		</form>
 	</div>
 	
-	<div class="petInfo">
+	<%-- <div class="petInfo">
 	<span style="margin: 40px 0 0 0; font-size: 15pt; font-weight: bold;">나의 반려동물 정보</span>
 	<img id="petImg" onclick="location.href='<%= ctxPath %>/mypage/myshopping.dog?tabMenu=10'" src="../hm_img/petinfo.png" >
 	<hr style="border: solid 1px gray; margin: 0;">
@@ -418,7 +447,7 @@ function goEdit(){
 			</tr>
 		</tbody>
 	</table>
-	</div>
+	</div> --%>
 	
 	<div class="btns" style="margin-bottom: 40px;">
 		<button id="editBtn" type="button" style="color: #fff;" onclick="goEdit()">수정하기</button>

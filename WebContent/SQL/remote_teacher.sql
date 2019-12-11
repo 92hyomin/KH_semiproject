@@ -476,12 +476,9 @@ nocache;
 
 select * from user_all_tables where lower(table_name) like '%tbl_dog%'; 
 
-
-
+--------적립금테이블 컬럼추가
 ALTER TABLE TBL_DOG_RESERVE
 ADD (CONTENT VARCHAR2(50));
-
-update TBL_DOG_RESERVE set content='회원가입' where reserve_seq='7'
 
  select member_seq, user_id, user_name, user_birthday, user_gender, 
  postcode, addr1, addr2, phone, email, user_sns, alert_email, alert_sms 
@@ -491,39 +488,21 @@ update TBL_DOG_RESERVE set content='회원가입' where reserve_seq='7'
  , trunc( months_between(sysdate, pwchangeday) ) AS pwdchangegap 
  , trunc( months_between(sysdate, lastloginday) ) AS lastlogindategap 
  from tbl_dog_member;
-                    
-desc tbl_dog_member
-select * from user_sequences;
-
-insert into tbl_dog_member(member_seq, user_id, user_name, user_pw, email) values(SEQ_DOG_MEMBER.nextval, 'hmtest', '최효민', 'test', 'gyals0367@naver.com');
-select * from tbl_dog_member;
-
-desc TBL_DOG_RESERVE;
-select * from TBL_DOG_RESERVE;
-
-update TBL_DOG_RESERVE set reserve_minus='-200' where reserve_seq='16'
-
-insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '2000', sysdate, '테스트3');
-insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '3000', sysdate, '테스트4');
-insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '4000', sysdate, '테스트5');
-insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '1500', sysdate, '테스트6');
-insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_plus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '200', sysdate, '테스트7');
-insert into TBL_DOG_RESERVE(reserve_seq, fk_email, reserve_minus, usedate, content) values(SEQ_DOG_RESERVE.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '200', sysdate, '테스트사용');
 
 
---적립금 내역
+-------------적립금 내역
 select usedate, content, NVL(reserve_plus,reserve_minus) as reserve
 from TBL_DOG_RESERVE
 where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
 order by usedate desc;
 
 
---적립금 총액
+-------------적립금 총액
 select sum(NVL(reserve_plus,0)+NVL(reserve_minus,0)) as totalReserve
 from TBL_DOG_RESERVE
 where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
 
-----------------------테스트 데이터 생성
+--------------테스트 데이터 생성
 create or replace procedure pcd_TBL_DOG_RESERVE
 (p_plus IN number
 ,p_content  IN varchar2 )
@@ -534,10 +513,11 @@ is begin
     end loop;
 end pcd_TBL_DOG_RESERVE;
 
+--------------프로시저 실행
 exec pcd_TBL_DOG_RESERVE('100','구매 적립');
----------------------------------------------
 
-----------------페이징 처리용 페이지번호
+
+----------------페이징 처리용 페이지번호(적립금)
 select RNO, usedate, content, reserve
 from
 (
@@ -552,13 +532,54 @@ order by usedate desc
 )T
 where T.RNO between 11and 20;
 
-----------------전체 페이지 갯수 구하기
+----------------전체 페이지 갯수 구하기(적립금)
 select ceil(count(*)/10) as totalPage
 from TBL_DOG_RESERVE
 where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
 
-select * from TBL_DOG_QNA;
+-----------------------2019.12.11 작업
+select * from TBL_DOG_ORDER
+select * from TBL_DOG_ORDERDETAIL
+desc TBL_DOG_ORDERDETAIL
+desc TBL_DOG_ORDER
 
-desc TBL_DOG_ORDER;
+insert into TBL_DOG_ORDER(order_num, fk_email, order_day, order_deliverynum, ORDER_STATUS, DELIVERY, DELIVERY_MSG, RECEIVER, MEMO)
+values(DOG201912110001, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', sysdate, 'test1234', '0', 
 
-desc TBL_DOG_ORDERDETAIL;
+select * from TBL_DOG_BASKET;
+
+select * from TBL_DOG_MEMBER;
+
+--------회원ID,PW 확인
+select * 
+from TBL_DOG_MEMBER 
+where user_id='testhm' and user_pw='85189c34f5df35582de4ea2208bbda6efc5cde8e0b3c2fc6422a64f4d657bd74';
+
+select * from TBL_DOG_PET
+
+desc TBL_DOG_PET
+desc TBL_DOG_ORDER
+desc TBL_DOG_ORDERDETAIL
+desc TBL_DOG_MEMBER ;
+ 
+
+select * 
+from TBL_DOG_MEMBER 
+where email='YELKaOTBAkryoMCHRZ7nwQ==';
+
+update TBL_DOG_MEMBER set user_pw='85189c34f5df35582de4ea2208bbda6efc5cde8e0b3c2fc6422a64f4d657bd74!', postcode='123456', addr1='', addr2='', phone='010-119', ALERT_EMAIL='1', ALERT_SMS='0', pwchangeday=sysdate
+where email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+
+select * from TBL_DOG_PET
+insert into TBL_DOG_PET(pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo, status)
+values(SEQ_DOG_PET.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '꾸릉이동생', '20191125', '다람쥐', '0', '2', '2', 'mypet.png','1' );
+
+
+select count(*) as CNT 
+from TBL_DOG_PET
+where status='1' and fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+
+select pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo
+from TBL_DOG_PET
+where status='1' and fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+

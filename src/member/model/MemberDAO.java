@@ -15,6 +15,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.sun.glass.ui.CommonDialogs.Type;
+
 import util.security.AES256;
 import util.security.Sha256;
 
@@ -464,7 +466,118 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return mvo;
 	} // end of loginByNormal ---------------------------------------------------------------
+
+//////////////////////////////////////////////////////////////
+/////////////////////////// 최효민 ///////////////////////////
+//////////////////////////////////////////////////////////////
 	
+	//ID,PW Check
+	@Override
+	public boolean isExistUserid(String userid, String passwd) throws SQLException {
+		boolean bool = false;
+		
+		try {
+			
+			conn = ds.getConnection();
+			
+			String sql = "select * \r\n" + 
+					"from TBL_DOG_MEMBER \r\n" + 
+					"where user_id= ? and user_pw= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.setString(2, Sha256.encrypt(passwd));
+			
+			rs = pstmt.executeQuery();
+			bool = rs.next();
+			
+		} finally {
+			close();
+		}
+		
+		return bool;
+	}//end of isExistUserid
+
+	//내 정보 변경
+	@Override
+	public int updateMemberInfo(HashMap<String, String> paraMap) throws SQLException {
+		int n = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String email = paraMap.get("email");
+			String user_pw = paraMap.get("user_pw");
+			String postcode = paraMap.get("postcode");
+			String addr1 = paraMap.get("addr1");
+			String addr2 = paraMap.get("addr2");
+			String phone = paraMap.get("phone");
+			String emailreceive = paraMap.get("emailreceive");
+			String smsreceive = paraMap.get("smsreceive");
+			
+			//공백으로 넘어온 항목은 기존 데이터 사용을 위해 if문 사용
+			String sql = "update TBL_DOG_MEMBER set user_pw= ? ";
+			if(!postcode.isEmpty()) { 
+				sql += ",postcode= ? "; 
+				}
+			if(!addr1.isEmpty()) { 
+				sql += ",addr1= ? "; 
+				}
+			if(!addr2.isEmpty()) { 
+				sql += ",addr2= ? "; 
+				}
+			if(!phone.isEmpty()) { 
+				sql += ",phone= ? ";
+				}
+			
+			sql += ", ALERT_EMAIL= ? , "
+					+ "ALERT_SMS= ? , "
+					+ "pwchangeday=sysdate\r\n"  
+					+ "where email= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			int i = 1;
+			
+			//공백으로 넘어온 항목은 기존 데이터 사용을 위해 if문 사용
+			pstmt.setString(i, Sha256.encrypt(user_pw));
+			i++;
+			if(!postcode.isEmpty()) {
+				pstmt.setString(i, postcode);
+				i++;
+			}
+			if(!addr1.isEmpty()) {
+				pstmt.setString(i, addr1);
+				i++;
+			}
+			if(!addr2.isEmpty()) {
+				pstmt.setString(i, addr2);
+				i++;
+			}
+			if(!phone.isEmpty()) {
+				pstmt.setString(i, phone);
+				i++;
+			}
+			pstmt.setString(i, emailreceive);
+			i++;
+			pstmt.setString(i, smsreceive);
+			i++;
+			pstmt.setString(i, aes.encrypt(email));
+			
+			n = pstmt.executeUpdate();
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (GeneralSecurityException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
+
+//////////////////////////////////////////////////////////////
+/////////////////////////// 최효민끝 /////////////////////////
+//////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 			

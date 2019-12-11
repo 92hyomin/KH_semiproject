@@ -114,6 +114,7 @@ public class MypageDAO implements InterMypageDAO {
 			return reserveList;
 		}
 
+		//적립금 페이징 처리(총갯수)
 		@Override
 		public int getTotalPageReserve(HashMap<String, String> paraMap) throws SQLException {
 			int totalPage = 0;
@@ -143,6 +144,7 @@ public class MypageDAO implements InterMypageDAO {
 			return totalPage;
 		}
 
+		//적립금 총액 조회
 		@Override
 		public String getTotalReserve(String email) throws SQLException {
 			String totalReserve = "";
@@ -170,6 +172,79 @@ public class MypageDAO implements InterMypageDAO {
 			
 			return totalReserve;
 		}
+
+		//반려동물 마릿수 구하기
+		@Override
+		public int selectTotalPet(String email) throws SQLException {
+			int totalPet = 0;
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = "select count(*) as CNT \r\n" + 
+						"from TBL_DOG_PET\r\n" + 
+						"where status='1' and fk_email= ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, aes.encrypt(email));
+				
+				rs = pstmt.executeQuery();
+				rs.next();
+				totalPet = rs.getInt("CNT");
+			}catch(UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			return totalPet;
+		}
+
+		//반려동물 리스트 조회
+		@Override
+		public List<MyPetVO> selectMyPetList(String email) throws SQLException{
+			List<MyPetVO> myPetList = null;
+			
+			try {
+				conn = ds.getConnection();
+				
+				String sql = "select pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo\r\n" + 
+						"from TBL_DOG_PET\r\n" + 
+						"where status='1' and fk_email= ?";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, aes.encrypt(email));
+				
+				rs = pstmt.executeQuery();
+				
+				int cnt = 0;
+				while(rs.next()) {
+					cnt++;
+					if(cnt == 1)
+						myPetList = new ArrayList<MyPetVO>();
+					
+					MyPetVO pvo = new MyPetVO();
+					pvo.setPet_seq(rs.getInt("pet_seq"));
+					pvo.setFk_email(rs.getString("fk_email"));
+					pvo.setPet_name(rs.getString("pet_name"));
+					pvo.setPet_birthday(rs.getString("pet_birthday"));
+					pvo.setPet_type(rs.getString("pet_type"));
+					pvo.setPet_neutral(rs.getString("pet_neutral"));
+					pvo.setPet_weight(rs.getInt("pet_weight"));
+					pvo.setPet_gender(rs.getString("pet_gender"));
+					pvo.setPet_photo(rs.getString("pet_photo"));
+					
+					myPetList.add(pvo);
+				}
+				
+			}catch(UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			
+			return myPetList;
+		}
+		
 		
 			
 }

@@ -25,5 +25,11 @@ public interface InterMemberDAO {
 	
 	// 일반 로그인하기
 	MemberVO loginByNormal(HashMap<String,String> paraMap) throws SQLException;
+
+	//ID,PW Check
+	boolean isExistUserid(String userid, String passwd) throws SQLException;
+
+	//내 정보 변경
+	int updateMemberInfo(HashMap<String, String> paraMap) throws SQLException;
 	
 } // end of interface ---------------------------------

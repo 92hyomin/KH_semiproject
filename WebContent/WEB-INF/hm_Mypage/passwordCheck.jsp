@@ -116,8 +116,9 @@ function goCheck(){
 	}
 	else{
 		var frm = document.passcheckFrm;
+		
 		frm.method = "POST";
-		frm.action = "passwordCheck.up";
+		frm.action = "passwordCheck.dog";
 		frm.submit();
 	}
 }
@@ -134,12 +135,13 @@ function goCheck(){
 	</p>
 	<hr style="border: solid 0.5px silver;" />
 	
-	<form id="passcheckFrm">
+	<form name="passcheckFrm">
 		<table class="tbl">
 		
 			<tr>
 				<td><span class="frmtxt">ID</span>	</td>
-				<td><span class="frminput" name="userid">92hyomin</span>	</td>
+				<td><span class="frminput">${requestScope.userid}</span></td>
+				<input type="hidden" name="userid" value="${requestScope.userid}"/>
 			</tr>
 			<tr>
 				<td><span class="frmtxt">PASSWORD</span></td>

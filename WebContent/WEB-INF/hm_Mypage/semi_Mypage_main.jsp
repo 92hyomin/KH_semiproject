@@ -200,8 +200,7 @@ function orderDetail(){
 					    </ul>
 				    </td>
 				    <td rowspan="2" style="background-color: #2d2926; color: white;">
-				    	사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 
-				    	사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 사진넣는곳 
+				    	<img src="../hm_img/mypageImg.png" width="100%" height="100%"/>
 				    </td>
 			    </tr>
 			    <tr >

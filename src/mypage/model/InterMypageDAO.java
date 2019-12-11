@@ -15,4 +15,10 @@ public interface InterMypageDAO {
 	//적립금 총액 조회
 	String getTotalReserve(String email) throws SQLException;
 
+	//반려동물 마릿수 구하기
+	int selectTotalPet(String email) throws SQLException;
+
+	//반려동물 리스트 조회
+	List<MyPetVO> selectMyPetList(String email) throws SQLException;
+
 }
