@@ -179,7 +179,7 @@ input#user_id, input#user_pw {
 	
 	
 	// 카카오로 로그인 하기 
-    Kakao.init('26508671b7dcd96c3c01e94adb358b94');
+    Kakao.init('');
 	function loginWithKakao() {
 	  
 		Kakao.Auth.login({

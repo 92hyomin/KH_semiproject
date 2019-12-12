@@ -12,7 +12,7 @@
 <script type="text/javascript">
 	
 
-  var naver_id_login = new naver_id_login("tW0Ie2LxQlaCuZIPRS7U", "http://localhost:9090/Semi_Team1/login/naverLoginEnd.dog");
+  var naver_id_login = new naver_id_login("", "http://localhost:9090/Semi_Team1/login/naverLoginEnd.dog");
   // 접근 토큰 값 출력
   // alert(naver_id_login.oauthParams.access_token);
   // 네이버 사용자 프로필 조회
