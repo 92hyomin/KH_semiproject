@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <style type="text/css">
 #container{
 }
-	.mypetTbl{
-	width: 100%;
-	border-spacing: 0;
-	border-collapse: collapse;
+.mypetTbl{
+width: 100%;
+border-spacing: 0;
+border-collapse: collapse;
 }
 
 .mypetTbl tr td{
@@ -85,8 +86,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$( "#datepicker" ).datepicker({
-		dateFormat: 'yy-mm-dd'
+		dateFormat: 'yymmdd'
 	});
+	
+	$("#petGender").val("${myPetInfo.pet_gender}").prop("selected", true);
+	$("#dogBreed").val("${myPetInfo.pet_type}").prop("selected", true);
+	$("#datepicker").val("${myPetInfo.pet_birthday}");
+
+
 });
 
 function goAddpet(){
@@ -107,7 +114,8 @@ function goAddpet(){
 	}
 	
 	else{
-		alert("성공");
+		var frm = document.addPetFrm;
+		frm.submit();
 	}
 	
 }
@@ -121,39 +129,58 @@ function goAddpet(){
 </head>
 <body>
 <div id="container">
-	
 		<span class="tblText">나의 반려동물 등록하기</span>
-		<table class="mypetTbl" style="text-align: left;">
-			<tr>
-				<th>이름</th>
-				<td><input id="petName" type="text" /></td>
-				<th>종류</th>
-				<td colspan="3"><%@include file="SelectDogbreed.jsp" %></td>
-			</tr>
-			<tr>
-				<th>체중</th>
-				<td><input id="petWeight" type="text" />kg</td>
-				<th>성별</th>
-				<td>
-					<select name="petType" form="petTylefrm" style="width: 100px; height: 30px;">
-						<option value="1">남아</option>
-						<option value="2">여아</option>
-					</select>
-				</td>
-				<th>출생시기</th>
-				<td><input id="datepicker" class="petBirthday" type="text" readonly /></td>
-			</tr>
-			<tr>
-				<th>사진등록</th>
-				<td colspan="5">
-				<span>파일선택</span><br/>
-				<span>
-					- 권장사이즈 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드 가능)<br/>
-					- 1Mb 이하의 용량만 업로드 가능
-				</span>
-				</td>
-			</tr>
-		</table>
+		<form name="addPetFrm"
+		      action="<%= request.getContextPath()%>/mypage/addMypet.dog"
+		      method="POST"
+		      enctype="multipart/form-data"> 
+			<table class="mypetTbl" style="text-align: left;">
+				<tr>
+					<th>이름</th>
+					<td><input id="petName" name="petName" type="text" value="${myPetInfo.pet_name}"/></td>
+					<th>종류</th>
+					<td colspan="3"><%@include file="SelectDogbreed.jsp" %></td>
+				</tr>
+				<tr>
+					<th>체중</th>
+					<td><input id="petWeight" name="petWeight" type="text" value="${myPetInfo.pet_weight}"/>kg</td>
+					<th>성별</th>
+					<td>
+						<select name="petGender" id="petGender" name="petGender" style="width: 100px; height: 30px;">
+							<option value="1">남아</option>
+							<option value="2">여아</option>
+						</select>
+					</td>
+					<th>출생시기</th>
+					<td><input id="datepicker" class="petBirthday" name="petBirthday" type="text" readonly /></td>
+				</tr>
+				<tr>
+					<th>사진등록</th>
+					<c:if test="${myPetInfo.pet_photo == null }">
+						<td colspan="5">
+							<input type="file" name="petImage" id="petImage" class="infoData" accept=".gif, .jpg, .png" /><br/>
+							<span>
+								- 권장사이즈 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드 가능)<br/>
+								- 10mb 이하 파일만 업로드 가능
+							</span>
+						</td>
+					</c:if>
+					
+					<c:if test="${myPetInfo.pet_photo != null }">
+						<td colspan="5">
+							<img src="../mypetimg/${myPetInfo.pet_photo}" width="150px" height="150px">
+						</td>
+					</c:if>
+				</tr>
+				<%
+				String pet_seq = request.getParameter("pet_seq"); 
+				pageContext.setAttribute("pet_seq", pet_seq);
+				%>
+				<c:set var="pet_seq" value="${pageScope.pet_seq}"/>
+				<input type="hidden" name="pet_seq" value="${pageScope.pet_seq}" />
+			</table>
+		</form>
+		
 		<br/>
 		<div id="btnArea">
 			<span class="btns" id="submitBtn" onclick="goAddpet()">반려동물 등록</span>

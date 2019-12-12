@@ -21,4 +21,7 @@ public interface InterMypageDAO {
 	//반려동물 리스트 조회
 	List<MyPetVO> selectMyPetList(String email) throws SQLException;
 
+	//내 반려동물 정보 조회
+	MyPetVO selectMyPetInfo(String seq, String email) throws SQLException;
+
 }

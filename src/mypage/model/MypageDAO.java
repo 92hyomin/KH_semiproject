@@ -244,6 +244,41 @@ public class MypageDAO implements InterMypageDAO {
 			
 			return myPetList;
 		}
+		//내 반려동물 정보 조회
+		@Override
+		public MyPetVO selectMyPetInfo(String seq, String email) throws SQLException {
+			MyPetVO myPetInfo = null;
+			try {
+				conn = ds.getConnection();
+				
+				String sql = "select pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo " + 
+						"from TBL_DOG_PET " + 
+						"where status='1' and fk_email= ? and pet_seq= ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, aes.encrypt(email));
+				pstmt.setString(2, seq);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					myPetInfo = new MyPetVO();
+					myPetInfo.setPet_name(rs.getString("pet_name"));
+					myPetInfo.setPet_type(rs.getString("pet_type"));
+					myPetInfo.setPet_weight(Integer.parseInt(rs.getString("pet_weight")));
+					myPetInfo.setPet_gender(rs.getString("pet_gender"));
+					myPetInfo.setPet_birthday(rs.getString("pet_birthday"));
+					myPetInfo.setPet_photo(rs.getString("pet_photo"));
+				}
+				
+				
+			}catch(UnsupportedEncodingException | GeneralSecurityException e) {
+				e.printStackTrace();
+			}finally {
+				close();
+			}
+			return myPetInfo;
+		}
 		
 		
 			

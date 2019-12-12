@@ -37,7 +37,7 @@ function addMypet(){
 }
 
 function editMypet(pet_seq){
-	var url = "/Semi_Team1/mypage/addMypet.dog?seq="+pet_seq;
+	var url = "/Semi_Team1/mypage/addMypet.dog?pet_seq="+pet_seq;
     var name = "addMypet";
     var option = "width = 900px, height = 400px, location = no"
     window.open(url, name, option);
@@ -81,9 +81,12 @@ function editMypet(pet_seq){
 		</c:forEach>
 	</c:if>
 	
-	<div class="mypetInfo col-md-3 addPet" style="padding-top: 80px;">
-		<img src="../hm_img/addPetimg.png">
-	</div>
+	<%--반려동물은 최대 5마리까지만 등록가능  --%>
+	<c:if test="${totalPet < 5}">
+		<div class="mypetInfo col-md-3 addPet" style="padding-top: 80px;">
+			<img src="../hm_img/addPetimg.png">
+		</div>
+	</c:if>
 </div>
 </div>
 <jsp:include page="../footer_dog.jsp"/>
