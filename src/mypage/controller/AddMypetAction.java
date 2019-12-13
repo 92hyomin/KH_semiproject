@@ -79,7 +79,7 @@ public class AddMypetAction extends AbstractController {
 			
 			/////////////////////////////  공사중  ////////////////////////////////////
 			// 펫 추가는 사진첨부 할경우, 안할경우 고려
-			// seq 있으면 수정, 없으면 추가
+			// seq 있으면 수정, 없으면 추가 깃테스트
 
 			int n = pdao.productInsert(pvo);   // 테이블에 UPDATE, 또는 INSERT
 			  
