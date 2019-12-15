@@ -89,28 +89,68 @@ $(document).ready(function(){
 		dateFormat: 'yymmdd'
 	});
 	
+	//펫 기본 정보로 값 설정하기
 	$("#petGender").val("${myPetInfo.pet_gender}").prop("selected", true);
 	$("#dogBreed").val("${myPetInfo.pet_type}").prop("selected", true);
+	$("#petNeutralStatus").val("${myPetInfo.pet_neutral}").prop("selected", true);
 	$("#datepicker").val("${myPetInfo.pet_birthday}");
 
-
+	//SELECT선택시 hidden값 변경
+	$("#dogBreed").change(function(){
+		$("#petType").val($("#dogBreed").val());
+	});
+	
+	$("#petNeutralStatus").change(function(){
+		$("#petNeutral").val($("#petNeutralStatus").val());
+	});
+	
 });
 
 function goAddpet(){
 	var petName = $("#petName").val().trim();
 	var petWeight = $("#petWeight").val().trim();
 	var petBirthday = $(".petBirthday").val().trim();
+	var petNeutral = $("#petNeutralStatus").val();
+	var petWeight = $("#petWeight").val().trim();
+	var petType = $("#petType").val();
+	//체중 유효성 검사
+	if(petWeight != ""){
+		var regExp=/^[0-9]+$/;
+		var bool = regExp.test(petWeight);
+		
+		if( bool == false){
+			alert("반려동물 체중은 숫자만 입력하세요.");
+			$("#petWeight").focus();
+			return false;
+		}
+		
+		if((petWeight > 200) || (petWeight <1) ){
+			alert("반려동물 체중을 정확히 입력해주세요");
+			$("#petWeight").focus();
+			return false;
+		}
+	}
 	
 	if(petName==""){
 		alert("이름을 입력하세요");
+		$("#petName").focus();
 	}
 	
 	else if(petWeight==""){
 		alert("체중을 입력하세요");
+		$("#petWeight").focus();
 	}
 	
 	else if(petBirthday==""){
 		alert("출생시기를 입력하세요");
+	}
+	
+	else if(petNeutral==""){
+		alert("중성화 여부를 선택하세요");
+	}
+	
+	else if(petType==""){
+		alert("견종을 선택하세요");
 	}
 	
 	else{
@@ -138,8 +178,25 @@ function goAddpet(){
 				<tr>
 					<th>이름</th>
 					<td><input id="petName" name="petName" type="text" value="${myPetInfo.pet_name}"/></td>
+					
 					<th>종류</th>
-					<td colspan="3"><%@include file="SelectDogbreed.jsp" %></td>
+					<td>
+						<select name="dogBreed" id="dogBreed" form="dogBreedFrm" style="width: 100px; height: 30px;">
+							<%@include file="SelectDogbreed.jsp" %>
+						</select>
+						<input type="hidden" id="petType" name="petType" value="${myPetInfo.pet_type}" />
+					</td>
+					
+					<th>중성화여부</th>
+					<td>
+						<select name="petNeutralStatus" id="petNeutralStatus" form="petNeutralFrm" style="width: 100px; height: 30px;">
+							<option value="">선택</option>
+							<option value="1">유</option>
+							<option value="0">무</option>
+						</select>
+						
+						<input type="hidden" id="petNeutral" name="petNeutral" value="${myPetInfo.pet_neutral}" />
+					</td>
 				</tr>
 				<tr>
 					<th>체중</th>
@@ -156,7 +213,7 @@ function goAddpet(){
 				</tr>
 				<tr>
 					<th>사진등록</th>
-					<c:if test="${myPetInfo.pet_photo == null }">
+					<c:if test="${myPetInfo.pet_photo == null}">
 						<td colspan="5">
 							<input type="file" name="petImage" id="petImage" class="infoData" accept=".gif, .jpg, .png" /><br/>
 							<span>
@@ -166,7 +223,7 @@ function goAddpet(){
 						</td>
 					</c:if>
 					
-					<c:if test="${myPetInfo.pet_photo != null }">
+					<c:if test="${myPetInfo.pet_photo != null}">
 						<td colspan="5">
 							<img src="../mypetimg/${myPetInfo.pet_photo}" width="150px" height="150px">
 						</td>
@@ -178,6 +235,7 @@ function goAddpet(){
 				%>
 				<c:set var="pet_seq" value="${pageScope.pet_seq}"/>
 				<input type="hidden" name="pet_seq" value="${pageScope.pet_seq}" />
+				<input type="hidden" name="petPhoto" value="${myPetInfo.pet_photo}" />
 			</table>
 		</form>
 		

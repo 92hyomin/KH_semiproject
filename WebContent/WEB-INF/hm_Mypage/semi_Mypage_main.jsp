@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="../header_dog.jsp" %>
+<link rel="stylesheet" type="text/css" href="/Semi_Team1/css/hm/style.css" />
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 #login_container {
@@ -149,6 +150,29 @@ li{
 	cursor: pointer;
 }
 
+.center {
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+
 </style>
 
 <script type="text/javascript">
@@ -166,14 +190,11 @@ $(document).ready(function(){
 		$(this).addClass("tabClick");
 	});
 	
-	$("#OrderDetailView").click(function(){
-		orderDetail();
-	});
 	
 });
 
-function orderDetail(){
-    var url = "/Semi_Team1/mypage/orderDetail.dog";
+function orderDetail(orderNum){
+	var url = "/Semi_Team1/mypage/orderDetail.dog?orderNum="+orderNum;
     var name = "orderDetail";
     var option = "width = 875px, height = 820px, location = no"
     window.open(url, name, option);
@@ -195,7 +216,6 @@ function orderDetail(){
 					    <p id="gradetxt" style="padding-bottom: 5px;"><span style="color: #916b4a; font-weight: bold;">[${requestScope.name}]</span>님 환영합니다.</p>
 					    <p id="gradetxt" style="font-size: 9pt; padding-top: 0;">마지막 로그인: ${lastLogin}</p>
 					    <ul class="hm">
-					    <li id="infoli"><button id="myinfobtn" type="button">등급별 혜택(삭제)</button></li>
 					    <li id="infoli"><button id="myinfobtn" type="button" onclick="location.href='/Semi_Team1/mypage/passwordCheck.dog'">회원정보수정</button></li>
 					    </ul>
 				    </td>
@@ -208,7 +228,7 @@ function orderDetail(){
 				    	<a class="leftMenu hm_a" href="<%= ctxPath %>/mypage/recentlyOrder.dog">
 					    <p id="bottom_img"><img src="../hm_img/orderList.png" width=50px  style="background-color:white; border-radius: 100%;"/></p>
 						주문<br/>
-					    <strong style="color: #ff4800;">0원</strong>
+					    <strong style="color: #ff4800;"><fmt:formatNumber maxFractionDigits="3" value="${totalOrder}" />원</strong>
 				    	</a>
 				    </td>
 				    <td>
@@ -241,6 +261,25 @@ function orderDetail(){
 		</tr>
 	</thead>
 	<tbody class="hm_tbody">
+		<c:if test="${empty requestScope.orderList}">
+			<tr>
+				<td colspan="5">주문 내역이 없습니다.</td>
+			</tr>
+		</c:if>
+	
+		<c:if test="${!empty requestScope.orderList}">
+			<c:forEach var="ovo" items="${requestScope.orderList}" varStatus="status">
+				<tr>
+					<td>${status.count }</td>
+					<td>${ovo.order_num }</td>
+					<td>${ovo.product_name }</td>
+					<td><fmt:formatNumber maxFractionDigits="3" value="${ovo.amountmoney}" /></td>
+					<td>${ovo.order_day }</td>
+					<td><span id="OrderDetailView" onclick="orderDetail(${ovo.fk_order_num})">VIEW</span></td>
+				</tr>
+			</c:forEach>
+		</c:if>
+		<%--
 		<tr>
 			<td>John</td>
 			<td>Doe</td>
@@ -249,9 +288,16 @@ function orderDetail(){
 			<td>테스트</td>
 			<td><span id="OrderDetailView" onclick="orderDetail()">VIEW</span></td>
 		</tr>
+		 --%>
 	</tbody>
 	</table>
 	 </div>
+	 <div class="center">
+		<div style="text-align: center;" class="pagination">
+			${pageBar}
+		</div>
+	</div>
+	
 	</div>
  	
 </body>

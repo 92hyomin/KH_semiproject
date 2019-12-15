@@ -34,7 +34,7 @@
   <script type="text/javascript">
   	var naver_id_login = new naver_id_login("tW0Ie2LxQlaCuZIPRS7U", "http://localhost:9090/Semi_Team1/register/naverJoinPageEnd.dog");
   	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("green", 10 ,50);
+  	naver_id_login.setButton("white", 2,40);
   	naver_id_login.setDomain("http://localhost:9090");
   	naver_id_login.setState(state);
   	naver_id_login.setPopup();

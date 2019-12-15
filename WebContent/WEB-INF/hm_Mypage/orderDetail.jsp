@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <style type="text/css">
@@ -182,111 +184,119 @@ $(document).ready(function(){
 	<div class="tabContent" id="menu1" >
 	
 		<span class="tblText">주문자</span>
-		<table class="orderTbl" style="text-align: left;">
-			<tr>
-				<th>주문번호</th>
-				<td>201912040001</td>
-				<th>주문일자</th>
-				<td>2019.12.04</td>
-			</tr>
-			<tr>
-				<th>주문자</th>
-				<td>[이름]</td>
-				<th>주문서 입금현황</th>
-				<td>입금완료</td>
-			</tr>
-			<tr>
-				<th>주문메모</th>
-				<td colspan="4">[메모]</td>
-			</tr>
-		</table>
-		<br/><br/>
-		
-		<span class="tblText">배송지</span>
-		<table class="orderTbl" style="text-align: left;">
-			<tr>
-				<th>배송번호</th>
-				<td>S-191204-0001</td>
-				<th>송장번호</th>
-				<td>1234-5678</td>
-			</tr>
-			<tr>
-				<th>수취인</th>
-				<td>[수취인이름]</td>
-				<th>연락처</th>
-				<td>[연락처]</td>
-			</tr>
-			<tr>
-				<th>주소</th>
-				<td colspan="4">[주소]</td>
-			</tr>
-			<tr>
-				<th>배송메세지</th>
-				<td colspan="4">[메세지]</td>
-			</tr>
-		</table>
-		<br/><br/>
-		
-		<span class="tblText">주문상품</span>
-		
-		<table class="orderTbl tdCenter">
-		<thead>
-			<tr>
-				<th colspan="2" style="width:40%">주문상품정보</th>
-				<th style="width:15%">상품별주문번호</th>
-				<th style="width:6%">수량</th>
-				<th style="width:8%">가격</th>
-				<th style="width:8%">적립</th>
-				<th style="width:10%">처리상태</th>
-				<th style="width:12%">배송번호</th>
-			</tr>
-		</thead>
-		<tbody style="text-align: center;">
-			<tr>
-				<td><img alt="img" src="../hm_img/product.png" width="50px" height="50px"></td>
-				<td width="290px">더리얼 그레인프리 오븐베이크드 어덜트 50g X 3종</td>
-				<td>201912040001</td>
-				<td>[수량]</td>
-				<td>[가격]</td>
-				<td>[적립금액]</td>
-				<td>상품준비</td>
-				<td>S-191204-0001</td>
-			</tr>
-		</tbody>
-		</table>
-		<br/><br/>
-		
-		<span class="tblText">결제정보</span>
-		<table class="orderTbl tdCenter" style="margin-bottom: 10px;">
-		
-		<thead>
-			<tr>
-				<th style="width:15%">결제방법</th>
-				<th style="width:25%">결제금액</th>
-				<th style="width:60%">세부내역</th>
-			</tr>
-		</thead>
-		<tbody style="text-align: center;">
-			<tr>
-				<td>사용한 적립금</td>
-				<td>원</td>
-				<td></td>
-			</tr>
+		<c:forEach var="ovo" items="${orderDetailList}" varStatus="status">
+		<c:if test="${status.index eq 0}">
+			<table class="orderTbl" style="text-align: left;">
+				<tr>
+					<th>주문번호</th>
+					<%--<td>201912040001</td>--%>
+					<td>${ovo.order_num}</td>
+					<th>주문일자</th>
+					<%--<td>201912040001</td>--%>
+					<td>${ovo.order_day}</td>
+				</tr>
+				<tr>
+					<th>주문자</th>
+					<td>${requestScope.loginuser.user_name}</td>
+					<th>주문서 입금현황</th>
+					<td>${ovo.order_freedeliv}</td>
+				</tr>
+				<tr>
+					<th>주문메모</th>
+					<td colspan="4">${ovo.memo}</td>
+				</tr>
+			</table>
+			<br/><br/>
 			
-			<tr>
-				<td>사용한 예치금</td>
-				<td>원</td>
-				<td></td>
-			</tr>
+			<span class="tblText">배송지</span>
+			<table class="orderTbl" style="text-align: left;">
+				<tr>
+					<th>배송번호</th>
+					<td>${ovo.order_deliverynum}</td>
+					<th>송장번호</th>
+					<td>${ovo.order_deliverynum}</td>
+				</tr>
+				<tr>
+					<th>수취인</th>
+					<td>${ovo.receiver}</td>
+					<th>연락처</th>
+					<td>${requestScope.loginuser.phone}</td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td colspan="4">${ovo.delivery}</td>
+				</tr>
+				<tr>
+					<th>배송메세지</th>
+					<td colspan="4">${ovo.delivery_msg}</td>
+				</tr>
+			</table>
+			<br/><br/>
 			
-			<tr>
-				<td>카드</td>
-				<td>2,500원[입금상태]</td>
-				<td>[영수증]</td>
-			</tr>
-		</tbody>
-		</table>
-		
+			
+			<span class="tblText">주문상품</span>
+			
+			<table class="orderTbl tdCenter">
+			
+			<thead>
+				<tr>
+					<th colspan="2" style="width:40%">주문상품정보</th>
+					<th style="width:15%">상품별주문번호</th>
+					<th style="width:6%">수량</th>
+					<th style="width:8%">가격</th>
+					<th style="width:8%">적립</th>
+					<th style="width:10%">처리상태</th>
+					<th style="width:12%">배송번호</th>
+				</tr>
+			</thead>
+			<tbody style="text-align: center;">
+			</c:if>
+				<tr>
+					<td><img alt="img" src="../hm_img/${ovo.photoname }" width="50px" height="50px"></td>
+					<td width="290px">${ovo.product_name}</td>
+					<td>${ovo.order_num}</td>
+					<td>${ovo.quantity}</td>
+					<td><fmt:formatNumber maxFractionDigits="3" value="${ovo.amountmoney}" />원</td>
+					<td>${ovo.amountmoney * 0.05}원</td>
+					<td>${ovo.order_status}</td>
+					<td>${ovo.order_deliverynum}</td>
+				</tr>
+			</c:forEach>
+			</tbody>
+			</table>
+			<br/><br/>
+			
+			
+			<span class="tblText">결제정보</span>
+			<table class="orderTbl tdCenter" style="margin-bottom: 10px;">
+			
+			<thead>
+				<tr>
+					<th style="width:15%">결제방법</th>
+					<th style="width:25%">결제금액</th>
+					<th style="width:60%">세부내역</th>
+				</tr>
+			</thead>
+			<tbody style="text-align: center;">
+				<tr>
+					<td>사용한 적립금</td>
+					<td>원</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td>사용한 예치금</td>
+					<td>원</td>
+					<td></td>
+				</tr>
+				
+				<tr>
+					<td>카드</td>
+					<td>2,500원[입금상태]</td>
+					<td>[영수증]</td>
+				</tr>
+			</tbody>
+			</table>
 		<span id="orderBtn1" onclick="alert('결제대금의 환불/취소는 쇼핑몰로 연락주시기 바랍니다.')">주문취소</span>
 	</div>
 	

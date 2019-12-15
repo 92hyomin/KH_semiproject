@@ -202,6 +202,16 @@
 				return false;
 			}
 			
+			// 아이디 랜덤 생성하기 
+			if(snsType == "kakao"){
+				
+				$("#user_id").val();
+			}
+			else if ( snsType == "naver"){
+				
+				$("#user_id").val();
+			}
+			
 			var frm = document.snsMemberRegisterForm;
 			frm.submit();
 			

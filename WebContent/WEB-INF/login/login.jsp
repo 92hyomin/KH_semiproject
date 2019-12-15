@@ -90,15 +90,8 @@ input#user_id, input#user_pw {
 
 	$(document).ready(function(){
 		
-		// 아이디 저장의 경우 아이디 불러오기
-		var loginUserid = localStorage.getItem('saveid');
+		$("#user_id").focus();
 		
-		if(loginUserid != null	){
-			
-			$("#user_id").val(loginUserid);
-			$("input:checkbox[id=saveid]").prop("checked", true) ;
-		}
-
 		$("#user_id").keydown(function(event){
 			
 			if(event.keyCode == 13){
@@ -113,6 +106,7 @@ input#user_id, input#user_pw {
 			
 		});
 		
+		
 		// 로그인 버튼 
 		$("#loginbtn").click(function(){
 			
@@ -124,9 +118,6 @@ input#user_id, input#user_pw {
 		
 	}); // end of $document.ready ---------------------------------------
 	
-	
-	
-	// 로그인 메소드 
 	function goLogin(){
 		
 		var userid = $("#user_id").val().trim();
@@ -134,52 +125,25 @@ input#user_id, input#user_pw {
 		
 		if(userid==""){
 			alert("아이디를 입력하세요");
-			$("#user_id").focus();
+			$("#userid").focus();
 			return;
 		}
 		else if(passwd==""){
 			alert("패스워드를 입력하세요");
-			$("#user_pw").focus();
+			$("#passwd").focus();
 			return;
-		}
-		
-		if( $("input:checkbox[id=saveid]").is(":checked") == true ){		// 아이디 저장 체크박스에 체크된 경우
-			
-			var loginUserid = localStorage.getItem('saveid');			// key 값이 saveid !
-			
-			if(loginUserid == null){
-				
-				localStorage.setItem("saveid", $("#user_id").val());
-			}
-			else if (loginUserid != null && loginUserid != $("#user_id").val() ) {
-				
-				localStorage.removeItem("saveid");
-				localStorage.setItem("saveid", $("#user_id").val());
-			}
-			
-			
-		}
-		else {			// 아이디 저장 체크박스에 체크 안된 경우
-			
-			var loginUserid = localStorage.getItem('saveid');			// key 값이 saveid !
-			
-			if(loginUserid != null){
-				
-				localStorage.removeItem("saveid");
-			}
-			
 		}
 		
 		var frm = document.normalLoginForm;
 		frm.method="POST";
-		frm.action="<%= ctxPath%>/login/login.dog";
+		frm.action="";
 		frm.submit();
 		
-	} // end of goLogin ---------------------------------------------------
+	}
 	
 	
 	// 카카오로 로그인 하기 
-    Kakao.init('');
+    Kakao.init('26508671b7dcd96c3c01e94adb358b94');
 	function loginWithKakao() {
 	  
 		Kakao.Auth.login({
@@ -243,12 +207,12 @@ input#user_id, input#user_pw {
 						</tr>
 						<tr>
 							<td>
-								<input id="user_id" name="user_id" type="text" placeholder="아이디" maxlength="15"/>
+								<input id="user_id" name="user_id" type="text" placeholder="아이디" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input id="user_pw" name="user_pw" type="password" placeholder="패스워드" maxlength="30" />
+								<input id="user_pw" name="user_pw" type="password" placeholder="패스워드" />
 							</td>
 						</tr>
 						<tr>

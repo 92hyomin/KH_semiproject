@@ -35,7 +35,7 @@ $(document).ready(function(){
 	    <ul class="hm" id="subtab2" style="padding: 0; ">
 		    <li id="subtabli5" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/recentlyViewProd.dog">최근 본 상품</a></li><span>|</span>
 		    <li id="subtabli6" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/wishList.dog">관심 상품</a></li><span>|</span>
-		    <li id="subtabli7" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/qnA.dog">1:1 문의</a></li><span>|</span>
+		    <li id="subtabli7" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/qnA.dog">1:1 문의<span style="color: red;">(QNA로 링크)</span></a></li><span>|</span>
 		    <li id="subtabli8" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/mypost.dog">내 게시글</a></li>
 	    </ul>
     </div>
@@ -44,6 +44,6 @@ $(document).ready(function(){
 	    <ul class="hm" id="subtab3" style="padding: 0; ">
 		    <li id="subtabli9" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/passwordCheck.dog">정보수정</a></li><span>|</span>
 		    <li id="subtabli10" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/mypet.dog">나의 반려동물 정보</a></li><span>|</span>
-		    <li id="subtabli11" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/delUser.dog" >회원탈퇴</a></li>
+		    <li id="subtabli11" class="subtabli"><a class="hm_a" href="/Semi_Team1/mypage/deleteUser.dog" >회원탈퇴</a></li>
 	    </ul>
     </div>

@@ -43,6 +43,13 @@ function editMypet(pet_seq){
     window.open(url, name, option);
 }
 
+function deleteMypet(pet_seq){
+	if(confirm("정말로 삭제하시겠습니까?")){
+		location.href='/Semi_Team1/mypage/deletePet.dog?pet_seq='+pet_seq;
+	}
+
+}
+
 </script>
 
 <div style="border-top: solid 1px black; border-bottom: solid 1px black; width: 500px; text-align: center; margin: 50px auto; padding: 10px;">
@@ -73,7 +80,7 @@ function editMypet(pet_seq){
 			</tr>
 			<tr>
 				<td style="width: 50%;"><button class="myPetBtn myPetEdit" type="button" id="myPetEdit${status.index}" onclick="editMypet(${rvo.pet_seq})" >수정</button></td>
-				<td style="width: 50%;"><button class="myPetBtn" type="button" style="border-left: hidden;">삭제</button></td>
+				<td style="width: 50%;"><button class="myPetBtn" type="button" style="border-left: hidden;" onclick="deleteMypet(${rvo.pet_seq})" >삭제</button></td>
 			</tr>
 			</table>
 			</div>

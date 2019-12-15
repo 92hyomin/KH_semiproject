@@ -1,4 +1,10 @@
 show user;
+select * from all_tables;
+
+create user semiuser identified by eclass;
+grant create session to semiuser;
+grant create table to semiuser;
+grant unlimited tablespace to semiuser;
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -515,6 +521,7 @@ end pcd_TBL_DOG_RESERVE;
 
 --------------프로시저 실행
 exec pcd_TBL_DOG_RESERVE('100','구매 적립');
+select * from TBL_DOG_RESERVE;
 
 
 ----------------페이징 처리용 페이지번호(적립금)
@@ -537,6 +544,7 @@ select ceil(count(*)/10) as totalPage
 from TBL_DOG_RESERVE
 where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
 
+
 -----------------------2019.12.11 작업
 select * from TBL_DOG_ORDER
 select * from TBL_DOG_ORDERDETAIL
@@ -546,10 +554,19 @@ desc TBL_DOG_ORDER
 insert into TBL_DOG_ORDER(order_num, fk_email, order_day, order_deliverynum, ORDER_STATUS, DELIVERY, DELIVERY_MSG, RECEIVER, MEMO)
 values(DOG201912110001, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', sysdate, 'test1234', '0', 
 
+insert into TBL_DOG_MEMBER(MEMBER_SEQ, USER_ID, USER_NAME, USER_PW, EMAIL)
+values(SEQ_DOG_MEMBER.nextval, 'testhm', '최효민', '85189c34f5df35582de4ea2208bbda6efc5cde8e0b3c2fc6422a64f4d657bd74', '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=');
+
+
 select * from TBL_DOG_BASKET;
+
+desc TBL_DOG_MEMBER;
 
 select * from TBL_DOG_MEMBER;
 
+update TBL_DOG_MEMBER set user_gender='1', postcode='123456', addr1='asdf', addr2='adsf', phone='1234',user_birthday='19921123'
+where user_name='최효민';
+commit
 --------회원ID,PW 확인
 select * 
 from TBL_DOG_MEMBER 
@@ -571,9 +588,11 @@ update TBL_DOG_MEMBER set user_pw='85189c34f5df35582de4ea2208bbda6efc5cde8e0b3c2
 where email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
 
 select * from TBL_DOG_PET
-insert into TBL_DOG_PET(pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo, status)
-values(SEQ_DOG_PET.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '꾸릉이동생', '20191125', '다람쥐', '0', '2', '2', 'mypet.png','1' );
 
+insert into TBL_DOG_PET(pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo, status)
+values(SEQ_DOG_PET.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '골든', '20191125', '골든리트리버', '0', '2', '2', 'mypet.png','1' );
+
+    
 
 select count(*) as CNT 
 from TBL_DOG_PET
@@ -581,5 +600,157 @@ where status='1' and fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
 
 select pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo
 from TBL_DOG_PET
-where status='1' and fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+where status='1' and fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=' and pet_seq='7'
 
+--펫 등록하기
+insert into TBL_DOG_PET(pet_seq, fk_email, pet_name, pet_birthday, pet_type, pet_neutral, pet_weight, pet_gender, pet_photo, status)
+values(SEQ_DOG_PET.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', '골든', '20191125', '골든리트리버', '0', '2', '2', 'mypet.png','1' );
+
+--펫 정보 수정
+update TBL_DOG_PET 
+set pet_name='꾸릉테스트21', pet_type='푸들', pet_weight='20', pet_gender='1', pet_birthday='19991101', pet_neutral= '0', pet_photo= 'noimage.gif'
+where  status='1' and fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=' and pet_seq='11';
+
+
+
+select * from TBL_DOG_PET
+
+
+--펫 삭제
+update TBL_DOG_PET 
+set status='1'
+where  fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=' and pet_seq='9';
+
+                        
+show user;
+
+
+select user_id, email, status, resign_reason
+from TBL_DOG_MEMBER;
+
+--회원탈퇴 
+update TBL_DOG_MEMBER
+set status='1',resign_reason='', user_id='testhm'
+where status='0' and email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+
+desc tbl_dog_qna;
+select * from tbl_dog_qna;
+
+desc tbl_dog_order;
+
+insert into tbl_dog_order(order_num, fk_email, order_day, order_deliverynum, order_status, order_freedeliv, delivery, delivery_msg, receiver, memo)
+values(seq_dog_order.nextval, '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=', sysdate, 'S-191204-1111', 2, 1, '서울시 광진구 구의2동', '경비실에 맡겨주세요', '삼순신', '');
+
+insert into tbl_dog_orderdetail(orderdetail_seq, fk_order_num, fk_product_code, quantity, amountmoney)
+values(seq_dog_orderdetail.nextval, 11, 1, 1, 150000);
+
+select *
+from tbl_dog_order A, tbl_dog_orderdetail B
+where A.order_num = B.fk_order_num and fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+                        
+select * from tbl_dog_order;
+select * from tbl_dog_orderdetail;
+
+select ceil(count(*)/5) as totalPage
+from TBL_DOG_order
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+
+select RNO, order_num, order_day, order_deliverynum, order_status, order_freedeliv, delivery, delivery_msg, receiver, memo
+from
+(
+select rownum as RNO,  order_num, order_day, order_deliverynum, order_status, order_freedeliv, delivery, delivery_msg, receiver, memo
+from
+(
+select *
+from TBL_DOG_ORDER
+where fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+order by order_day
+)V
+)T
+where T.RNO between 1 and 5
+
+select rownum as RNO, fk_order_num,order_num, order_day , product_name, quantity, amountmoney
+from(
+    select rownum as RNO, fk_order_num,order_num, order_day , product_name, quantity, amountmoney
+    from(
+        select fk_order_num, A.order_num, order_day , C.product_name, B.quantity, amountmoney
+        from tbl_dog_order A, tbl_dog_orderdetail B, tbl_dog_product C
+        where A.order_num = B.fk_order_num and B.fk_product_code = C.product_code and A.fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+        order by order_day
+    )V
+)T
+where T.RNO between 1 and 9
+
+select RNO, fk_order_num, order_num, order_day , product_name, quantity, amountmoney
+from(
+    select rownum as RNO, fk_order_num, order_num, order_day , product_name, quantity, amountmoney
+    from(
+        select fk_order_num, A.order_num, order_day , C.product_name, B.quantity, amountmoney
+        from (
+            select * from tbl_dog_order
+            where ROWID IN (SELECT MAX(ROWID) FROM tbl_dog_order GROUP BY order_num)) A, 
+            (
+            select * from tbl_dog_orderdetail
+            where ROWID IN (SELECT MAX(ROWID) FROM tbl_dog_orderdetail GROUP BY fk_order_num)) B, 
+            tbl_dog_product C
+        where A.order_num = B.fk_order_num and B.fk_product_code = C.product_code and A.fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc='
+        order by order_day
+    )V
+)T
+where RNO between 1 and 100
+
+
+SELECT * FROM tbl_dog_order;
+
+select * from tbl_dog_order
+where ROWID IN (SELECT MAX(ROWID) FROM tbl_dog_order GROUP BY order_num)
+
+select * from tbl_dog_orderdetail
+where ROWID IN (SELECT MAX(ROWID) FROM tbl_dog_orderdetail GROUP BY fk_order_num)
+
+WHERE ROWID IN (SELECT MAX(ROWID) FROM tbl_dog_order GROUP BY order_num)
+
+select A.order_num, order_day , C.product_name, B.quantity, amountmoney
+from tbl_dog_order A, tbl_dog_orderdetail B, tbl_dog_product C
+where A.order_num = B.fk_order_num and B.fk_product_code = C.product_code and A.fk_email = '15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=';
+
+        
+select * from tbl_dog_order;                
+select * from tbl_dog_product;
+desc tbl_dog_product;
+select * from tbl_dog_orderdetail;
+
+
+
+
+desc tbl_dog_orderdetail;
+
+
+select * from tbl_dog_member;
+
+select * from user_all_tables where lower(table_name) like '%tbl_dog%'; 
+
+select * from tbl_dog_reserve;
+select * from tbl_dog_orderdetail;
+select * from tbl_dog_order;
+select * from tbl_dog_product;
+select * from tbl_dog_prodphoto;
+
+desc tbl_dog_prodphoto;
+desc tbl_dog_product;
+
+select order_num, order_day, order_deliverynum, order_status, order_freedeliv, delivery, delivery_msg, receiver, memo, quantity, amountmoney, product_name, photoname
+from tbl_dog_order A, tbl_dog_orderdetail B, tbl_dog_product C, tbl_dog_prodphoto D
+where fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=' and 
+    A.order_num='2' and B.fk_order_num='2' and 
+    B.fk_product_code = C.product_code and
+    C.product_code = D.fk_product_code
+    
+select *
+from tbl_dog_order A, tbl_dog_orderdetail B, tbl_dog_product C, tbl_dog_prodphoto D
+where fk_email='15NBRYJSlj7nQV7vnpxTKlWsSS3yNCwitHg6iyeZ/Hc=' and 
+    A.order_num='2' and B.fk_order_num='2' and 
+    B.fk_product_code = C.product_code and
+    C.product_code = D.fk_product_code
+    
+    select * from tbl_dog_order

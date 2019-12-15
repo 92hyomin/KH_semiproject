@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% String ctxPath = request.getContextPath(); %>
 
 <!DOCTYPE html>
@@ -251,12 +252,6 @@
 
     });
   	
-  	function goLogout(){
-  		
-  		location.href= "<%= ctxPath%>/login/logout.dog";
-  		
-  	}
-  	
   </script>
   
 </head>
@@ -275,9 +270,8 @@
 	  				<li><a href="">ORDER</a></li>
   				</c:if>
   				<c:if test="${ sessionScope.loginuser != null }">
-  					<li>${ sessionScope.loginuser.user_name } 님 환영합니다<li>
-  					<li><a href="javascript:goLogout();">LOGOUT</a></li>
-  					<li><a href="javascript:location.href= '<%= ctxPath%>/mypage/mypageMain.dog'">MYPAGE</a></li>
+  					<li><a href="">LOGOUT</a></li>
+  					<li><a href="">MYPAGE</a></li>
   				
   				</c:if>
   				
@@ -313,18 +307,18 @@
                 	<li class="dropCntMenu" style="width:8%;"></li>
                     <li class="dropCntMenu" style="width:10%;">
                     	<ul>
-                        	<li><a href="javascript:window.open('https://www.naturalbalance.co.kr/home_nb_mobile/')">네추럴 발란스</a></li>
-                            <li><a href="javascript:window.open('https://www.pulmuoneamio.com:8443/index.do')">아미오</a></li>
-                            <li><a href="javascript:window.open('http://www.bowwowkr.com/main')">바우와우</a></li>
-                            <li><a href="javascript:window.open('https://www.iskhan.co.kr/kor/')">이즈칸</a></li>
+                        	<li><a href="https://www.naturalbalance.co.kr/home_nb_mobile/">네추럴 발란스</a></li>
+                            <li><a href="https://www.pulmuoneamio.com:8443/index.do">아미오</a></li>
+                            <li><a href="http://www.bowwowkr.com/main">바우와우</a></li>
+                            <li><a href="https://www.iskhan.co.kr/kor/">이즈칸</a></li>
                         </ul>
                     </li>
                     <li class="dropCntMenu" style="width:10%;">
-                    	<ul>
-                        	<li><a href="">브랜드별</a></li>
-                            <li><a href="">연령별</a></li>
-                            <li><a href="">샘플신청</a></li>
-                            <li><a href="">상품후기</a></li>
+                    	<ul> <!-- 정하빈 헤더 변경 부분 ul --> 
+                        	<li><a href="<%= ctxPath %>/purchase/purchase.dog">브랜드별</a></li>  
+                            <li><a href="<%= ctxPath %>/purchase/purchase.dog">연령별</a></li>
+                            <li><a href="<%= ctxPath %>/purchase/purchase.dog?sort1=0">샘플신청</a></li>                                
+                            <li><a href="<%= ctxPath %>/purchase/purchase.dog">상품후기</a></li>
                         </ul>
                     </li>
                     <li class="dropCntMenu" style="width:10%;">

@@ -3,6 +3,7 @@ package mypage.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -32,8 +33,6 @@ public class AddMypetAction extends AbstractController {
 		
 		//GET방식
 		if("GET".equalsIgnoreCase(method)) {
-			System.out.println("[GET]seq: " + seq);
-			System.out.println("[GET]userid: " + userid);
 			String email = loginuser.getEmail();
 			
 			InterMypageDAO idao = new MypageDAO();
@@ -63,39 +62,56 @@ public class AddMypetAction extends AbstractController {
 			String petWeight = mtrequest.getParameter("petWeight");
 			String petGender = mtrequest.getParameter("petGender");
 			String petBirthday = mtrequest.getParameter("petBirthday");
-			String petImage = mtrequest.getFilesystemName("petImage");
+			String petPhoto = mtrequest.getFilesystemName("petImage");
+			String CurrentPetPhoto = mtrequest.getParameter("petPhoto");
+			String petType = mtrequest.getParameter("petType");
 			String pet_seq = mtrequest.getParameter("pet_seq");
+			String petNeutral = mtrequest.getParameter("petNeutral");
 			String email = loginuser.getEmail();
 			
-			System.out.println("[POST]petName: " + petName);
-			System.out.println("[POST]petWeight: " + petWeight);
-			System.out.println("[POST]petGender: " + petGender);
-			System.out.println("[POST]petBirthday: " + petBirthday);
-			System.out.println("[POST]petImage: " + petImage);
-			System.out.println("[POST]pet_seq: " + pet_seq);
-			System.out.println("[POST]email" + email);
+			HashMap<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("petName", petName);
+			paraMap.put("petWeight", petWeight);
+			paraMap.put("petGender", petGender);
+			paraMap.put("petBirthday", petBirthday);
+			paraMap.put("petPhoto", petPhoto);
+			paraMap.put("pet_seq", pet_seq);
+			paraMap.put("email", email);
+			paraMap.put("petType", petType);
+			paraMap.put("petNeutral", petNeutral);
+			paraMap.put("CurrentPetPhoto", CurrentPetPhoto);
 			
-			InterMypageDAO idao = new MypageDAO();
-			
-			/////////////////////////////  공사중  ////////////////////////////////////
-			// 펫 추가는 사진첨부 할경우, 안할경우 고려
-			// seq 있으면 수정, 없으면 추가 깃테스트
+			InterMypageDAO mdao = new MypageDAO();
 
-			int n = pdao.productInsert(pvo);   // 테이블에 UPDATE, 또는 INSERT
-			  
-			int m = 1;
+			int n = 0;
+			
+			if(pet_seq.isEmpty())
+				n = mdao.addMypet(paraMap);
+			else
+				n = mdao.updateMypet(paraMap);
 			  
 			String message = "";
 			String loc = "";
-			  
-			if(n==1) {
-				  message = "정보수정이 완료되었습니다";
+			
+			if(pet_seq.isEmpty() && n==1) {
+				  message = "반려동물 추가가 완료되었습니다.";
 				  loc = "javascript:self.close()";
 			}
-			else {
-				message = "정보수정에 실패했습니다. 고객센터로 문의 바랍니다";
+			else if(pet_seq.isEmpty() && n==0){
+				message = "반려동물 추가에 실패했습니다. 고객센터로 문의 바랍니다";
 				loc = "javascript:self.close()";
 			}
+			
+			else if(!pet_seq.isEmpty() && n==1){
+				message = "반려동물 수정이 완료되었습니다.";
+				loc = "javascript:self.close()";
+			}
+			
+			else {
+				message = "반려동물 수정에 실패했습니다. 고객센터로 문의 바랍니다";
+				loc = "javascript:self.close()";
+			}
+			
 			  
 			request.setAttribute("message", message);
 			request.setAttribute("loc", loc);

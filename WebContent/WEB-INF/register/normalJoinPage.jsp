@@ -193,10 +193,10 @@
 		
 		
 		
+		// end of 날짜 넣기 -------------------------------------------------------------------
+		
 		
 		/* 삭제, 추가 버튼 구현하기 */
-		
-		$("#optionPetCount").val("1");
 		
 		$("#joinOption2").hide();
 		$("#joinOption3").hide();
@@ -208,7 +208,7 @@
 		$("#OptionAdd").click(function(){ 
 			
 			if( startNum < 6) {
-				$("#optionPetCount").val(startNum);
+				
 				$("#joinOption"+startNum).show();
 				startNum ++;
 				
@@ -229,7 +229,7 @@
 					// 확인 눌렀을 때
 					
 					startNum --;
-					$("#optionPetCount").val((startNum-1));
+					
 					$("#joinOption"+startNum+" input").val("");
 					$("#joinOption"+startNum+" select").val("");
 					$("#joinOption"+startNum).hide();
@@ -349,30 +349,7 @@
 					return false;
 				}
 				
-				$.ajax ({
-					
-					url:"<%= request.getContextPath()%>/register/idDuplicateCheck.dog",
-					type: "POST",
-					data: {'user_id' : $("#user_idCheck").val()  },
-					dataType: "json",
-					success: function(json) {
-						
-						var dupResult = json.dupResult;
-						var message = json.message;
-						
-						alert(message);
-						if(dupResult != 1){
-						
-							$("#user_id").val($("#user_idCheck").val());
-						}
-						
-					},
-					error: function(request, status, error){
-						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-					}
-					
-				});
-				
+				location.href="?user_id="+user_idCheck;
 		}); // end of 아이디 중복확인 ----------------------------------------------
 		
 		
@@ -394,31 +371,7 @@
 				return false;
 			}
 			
-			$.ajax ({
-				
-				url:"<%= request.getContextPath()%>/register/emailDuplicateCheck.dog",
-				type: "POST",
-				data: {'email' : $("#email1").val()+"@"+$("#email2").val()  },
-				dataType: "json",
-				success: function(json) {
-					
-					var dupResult = json.dupResult;
-					var message = json.message;
-					
-					alert(message);
-					if(dupResult != 1){
-					
-						$("#email").val($("#email1").val()+"@"+$("#email2").val());
-					}
-					
-				},
-				error: function(request, status, error){
-					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-				}
-				
-			});
-			
-			
+			location.href="?email="+email;
 		}); // end of 이메일 중복확인 -----------------------------------------------
 
 		
@@ -442,7 +395,7 @@
 		
 		/* 입력창에 특수문자 입력하진 않았는지 유효성 검사하기 */
 		
-		// 이름 체크하기
+			// 이름 체크하기
 			var user_name = $("#user_name").val();
 			var regExp = /^[가-힣]+$/;
 			var bool1 = regExp.test(user_name);
@@ -490,10 +443,6 @@
 			if( user_pw2 != user_pw){
 				alert("비밀번호를 다시 입력해주세요.");
 				$("#user_pw").val("");
-				$("#user_pw2").val("");
-				
-				$("#user_pw").focus();
-				
 				return false;
 			}
 		
@@ -509,19 +458,6 @@
 				return false;
 			}	
 			
-			
-		// 주소 검사하기 
-		
-			var postcode = $("#postcode").val();
-			var addr1 = $("#addr1").val();
-			var addr2 = $("#addr2").val();
-
-			if ( postcode == null || addr1 == null || addr2 == null){
-				
-				alert("주소를 정확히 입력해주세요.");
-				$("#addr2").focus();
-				return false;
-			}
 			
 		// 휴대폰 숫자 검사하기
 			var phone = $("#phone").val();
@@ -576,7 +512,7 @@
 								
 				if(pet_weight != ""){
 					
-					var regExp =/^[0-9]/g;
+					var reg=/^[0-9]+$/;
 					var bool = regExp.test(pet_weight);
 					
 					if( bool == false){
@@ -614,8 +550,6 @@
 				}
 			}
 			
-		
-		
 		
 		// 이용약관, 개인정보 수집에 체크했는지 검사 !
 			var agree2 = $("#agree2").prop("checked");
@@ -712,14 +646,14 @@
 							<tr>	
 								<td>이름</td>
 								<td>
-									<input name="user_name" id="user_name" type="text" size="30" maxlength="17" autocomplete="off" />
+									<input name="user_name" id="user_name" type="text" size="30" />
 								</td>
 							</tr>
 							
 							<tr>	
 								<td>아이디</td>
 								<td>
-									<input id="user_idCheck"  type="text" size="30" maxlength="15" autocomplete="off"  />
+									<input name="user_idCheck" id="user_idCheck"  type="text" size="30" />
 									<button id="idCheck" type="button">중복확인</button>
 								</td>
 							</tr>
@@ -727,7 +661,7 @@
 							<tr>	
 								<td>비밀번호</td>
 								<td>
-									<input name="user_pw" id="user_pw"  type="password" size="30" maxlength="30"/>
+									<input name="user_pw" id="user_pw"  type="password" size="30" />
 									<br><span style="font-size:80%;">비밀번호는 최소 8자리에 숫자,영문자,특수문자가 각 1개씩 포함되어야 합니다.</span>
 								</td>
 							</tr>
@@ -735,7 +669,7 @@
 							<tr>	
 								<td>비밀번호 확인</td>
 								<td>
-									<input id="user_pw2"  type="password" size="30" maxlength="30" />
+									<input id="user_pw2"  type="password" size="30" />
 								</td>
 							</tr>
 							
@@ -769,21 +703,21 @@
 							<tr>	
 								<td>상세주소</td>
 								<td>
-									<input name="addr2" id="addr2" type="text" size="60" maxlength="80" autocomplete="off">
+									<input name="addr2" id="addr2" type="text" size="60">
 								</td>
 							</tr>
 							
 							<tr>	
 								<td>휴대폰</td>
 								<td>
-									<input name="phone" id="phone"  type="text" size="30" maxlength="11" autocomplete="off" placeholder="-는 제외하고 입력해주세요.">
+									<input name="phone" id="phone"  type="text" size="30" placeholder="-는 제외하고 입력해주세요.">
 								</td>
 							</tr>
 							
 							<tr>	
 								<td>이메일</td>
 								<td>
-									<input id="email1" type="text" size="20" maxlength="50" autocomplete="off">@<input id="email2" type="text" size="30" maxlength="30"><br>
+									<input name="email1" id="email1" type="text" size="20">@<input name="email2" id="email2" type="text" size="30"><br>
 									<select id="email3" onchange="inputEmail();">
 										<option value="none" selected>직접입력</option>
 										<option value="naver.com">naver.com</option>
@@ -800,23 +734,23 @@
 					</div>
 				
 				<!-- 생년월일 , 이메일 하나로 통합, 중복확인 여부 검사 -->	
-					<input type="text" name="user_id" id="user_id" size="30" readonly />
-					<input type="text" name="user_birthday" id="user_birthday" readonly>
-					<input type="text" name="email" id="email" readonly>
+					<input type="hidden" name="user_id" id="user_id" size="30" readonly />
+					<input type="hidden" name="user_birthday" id="user_birthday" readonly>
+					<input type="hidden" name="email" id="email" readonly>
 					
 				<!-- 옵션 사항 -->	
 				
 					<div style="text-align: left; font-weight:bold;font-size: 16pt;">나의 반려동물 등록</div>
 					<div style="font-size: 90%; text-align: right;font-weight:bold;">
 						아래사항은 선택사항입니다.<br>
-						<span style="color:red;">반려동물을 등록하시려면 사진을 제외한 아래 사항은 필수로 입력해주셔야 합니다.</span>
+						<span style="color:red;">반려동물을 등록하시려면 이름, 견종, 체중은 필수로 입력해주셔야 합니다.</span>
 					</div>
 					<div> 
 						<table id="joinOption1" class="joinOption">
 							<tr>
 								<td>이름</td>
 								<td style="width:40%;">
-									<input name="pet_name1" id="pet_name1"  type="text" size="30" autocomplete="off" maxlength="10" style="height:30;">
+									<input name="pet_name1" id="pet_name1"  type="text" size="30" style="height:30;">
 								</td>
 								<td>출생일</td>
 								<td>
@@ -830,7 +764,7 @@
 							<tr>
 								<td>견종</td>
 								<td style="width:40%;">
-									<select class="dog_type_sel" name="pet_type1" id="pet_type1">
+									<select class="dog_type_sel" id="pet_type1">
 										
 									</select>
 								</td>	
@@ -839,7 +773,7 @@
 								</td>	
 								<td>
 									<select name="pet_neutral1" id="pet_neutral1" style="width:40%;" >
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">유</option>
 										<option value="0">무</option>
 									</select>
@@ -848,11 +782,11 @@
 							
 							<tr>
 								<td>체중</td>
-								<td><input  name="pet_weight1" id="pet_weight1"  type="text"  autocomplete="off" size="15" maxlength="3" style="height:30;">&nbsp;Kg</td>
+								<td><input  name="pet_weight1" id="pet_weight1"  type="text"  size="15" style="height:30;">&nbsp;Kg</td>
 								<td>성별</td>
 								<td>
 									<select name="pet_gender1" id="pet_gender1"  style="width:40%;">
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">남아</option>
 										<option value="2">여아</option>
 									</select>
@@ -860,7 +794,7 @@
 							</tr>
 							
 							<tr>
-								<td>사진등록<br><br>&lt;선택사항&gt;</td>
+								<td>사진등록</td>
 								<td colspan="3">
 									<input type="file"  name="pet_photo1" id="pet_photo1"  ><br>
 									<span>- 권장 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드)</span><br>
@@ -873,7 +807,7 @@
 							<tr>
 								<td>이름</td>
 								<td style="width:40%;">
-									<input name="pet_name2" id="pet_name2"  type="text" size="30" autocomplete="off" maxlength="10" style="height:30;">
+									<input name="pet_name2" id="pet_name2"  type="text" size="30" style="height:30;">
 								</td>
 								<td>출생일</td>
 								<td>
@@ -886,7 +820,7 @@
 							<tr>
 								<td>견종</td>
 								<td style="width:40%;">
-									<select class="dog_type_sel" name="pet_type2" id="pet_type2">
+									<select class="dog_type_sel" id="pet_type2">
 										
 									</select>
 								</td>	
@@ -895,7 +829,7 @@
 								</td>	
 								<td>
 									<select name="pet_neutral2" id="pet_neutral2" style="width:40%;" >
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">유</option>
 										<option value="0">무</option>
 									</select>
@@ -904,11 +838,11 @@
 							
 							<tr>
 								<td>체중</td>
-								<td><input name="pet_weight2" id="pet_weight2"  type="text"  autocomplete="off" size="15" maxlength="3" style="height:30;">&nbsp;Kg</td>
+								<td><input name="pet_weight2" id="pet_weight2"  type="text"  size="15" style="height:30;">&nbsp;Kg</td>
 								<td>성별</td>
 								<td>
 									<select name="pet_gender2" id="pet_gender2"  style="width:40%;">
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">남아</option>
 										<option value="2">여아</option>
 									</select>
@@ -916,7 +850,7 @@
 							</tr>
 							
 							<tr>
-								<td>사진등록<br><br>&lt;선택사항&gt;</td>
+								<td>사진등록</td>
 								<td colspan="3">
 									<input type="file" name="pet_photo2" id="pet_photo2"  ><br>
 									<span>- 권장 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드)</span><br>
@@ -929,7 +863,7 @@
 							<tr>
 								<td>이름</td>
 								<td style="width:40%;">
-									<input name="pet_name3" id="pet_name3"  type="text" size="30" maxlength="10" autocomplete="off" style="height:30;">
+									<input name="pet_name3" id="pet_name3"  type="text" size="30" style="height:30;">
 								</td>
 								<td>출생일</td>
 								<td>
@@ -942,7 +876,7 @@
 							<tr>
 								<td>견종</td>
 								<td style="width:40%;">
-									<select class="dog_type_sel"  name="pet_type3" id="pet_type3">
+									<select class="dog_type_sel" id="pet_type3">
 										
 									</select>
 								</td>	
@@ -951,7 +885,7 @@
 								</td>	
 								<td>
 									<select name="pet_neutral3" id="pet_neutral3" style="width:40%;" >
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">유</option>
 										<option value="0">무</option>
 									</select>
@@ -960,11 +894,11 @@
 							
 							<tr>
 								<td>체중</td>
-								<td><input name="pet_weight3" id="pet_weight3"  type="text"  size="15" autocomplete="off" maxlength="3" style="height:30;">&nbsp;Kg</td>
+								<td><input name="pet_weight3" id="pet_weight3"  type="text"  size="15" style="height:30;">&nbsp;Kg</td>
 								<td>성별</td>
 								<td>
 									<select name="pet_gender3" id="pet_gender3"  style="width:40%;">
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">남아</option>
 										<option value="2">여아</option>
 									</select>
@@ -972,7 +906,7 @@
 							</tr>
 							
 							<tr>
-								<td>사진등록<br><br>&lt;선택사항&gt;</td>
+								<td>사진등록</td>
 								<td colspan="3">
 									<input type="file" name="pet_photo3" id="pet_photo3"  ><br>
 									<span>- 권장 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드)</span><br>
@@ -985,7 +919,7 @@
 							<tr>
 								<td>이름</td>
 								<td style="width:40%;">
-									<input name="pet_name4" id="pet_name4"  type="text" size="30" autocomplete="off" maxlength="10" style="height:30;">
+									<input name="pet_name4" id="pet_name4"  type="text" size="30" style="height:30;">
 								</td>
 								<td>출생일</td>
 								<td>
@@ -998,7 +932,7 @@
 							<tr>
 								<td>견종</td>
 								<td style="width:40%;">
-									<select class="dog_type_sel"  name="pet_type4" id="pet_type4">
+									<select class="dog_type_sel" id="pet_type4">
 										
 									</select>
 								</td>	
@@ -1007,7 +941,7 @@
 								</td>	
 								<td>
 									<select name="pet_neutral4" id="pet_neutral4" style="width:40%;" >
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">유</option>
 										<option value="0">무</option>
 									</select>
@@ -1016,11 +950,11 @@
 							
 							<tr>
 								<td>체중</td>
-								<td><input name="pet_weight4" id="pet_weight4"  type="text"  autocomplete="off" size="15" maxlength="3" style="height:30;">&nbsp;Kg</td>
+								<td><input name="pet_weight4" id="pet_weight4"  type="text"  size="15" style="height:30;">&nbsp;Kg</td>
 								<td>성별</td>
 								<td>
 									<select name="pet_gender4" id="pet_gender4"  style="width:40%;">
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">남아</option>
 										<option value="2">여아</option>
 									</select>
@@ -1028,7 +962,7 @@
 							</tr>
 							
 							<tr>
-								<td>사진등록<br><br>&lt;선택사항&gt;</td>
+								<td>사진등록</td>
 								<td colspan="3">
 									<input type="file"  name="pet_photo4" id="pet_photo4" ><br>
 									<span>- 권장 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드)</span><br>
@@ -1041,7 +975,7 @@
 							<tr>
 								<td>이름</td>
 								<td style="width:40%;">
-									<input name="pet_name5" id="pet_name5"  type="text" size="30" autocomplete="off" maxlength="10" style="height:30;">
+									<input name="pet_name5" id="pet_name5"  type="text" size="30" style="height:30;">
 								</td>
 								<td>출생일</td>
 								<td>
@@ -1054,7 +988,7 @@
 							<tr>
 								<td>견종</td>
 								<td style="width:40%;">
-									<select class="dog_type_sel" name="pet_type5" id="pet_type5">
+									<select class="dog_type_sel" id="pet_type5">
 										
 									</select>
 								</td>	
@@ -1063,7 +997,7 @@
 								</td>	
 								<td>
 									<select name="pet_neutral5" id="pet_neutral5" style="width:40%;" >
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">유</option>
 										<option value="0">무</option>
 									</select>
@@ -1072,11 +1006,11 @@
 							
 							<tr>
 								<td>체중</td>
-								<td><input name="pet_weight5" id="pet_weight5"  type="text"  size="15" autocomplete="off" maxlength="3" style="height:30;">&nbsp;Kg</td>
+								<td><input name="pet_weight5" id="pet_weight5"  type="text"  size="15" style="height:30;">&nbsp;Kg</td>
 								<td>성별</td>
 								<td>
 									<select name="pet_gender5" id="pet_gender5"  style="width:40%;">
-										<option value="none">선택</option>
+										<option value="">선택</option>
 										<option value="1">남아</option>
 										<option value="2">여아</option>
 									</select>
@@ -1084,7 +1018,7 @@
 							</tr>
 							
 							<tr>
-								<td>사진등록<br><br>&lt;선택사항&gt;</td>
+								<td>사진등록</td>
 								<td colspan="3">
 									<input type="file" name="pet_photo5" id="pet_photo5"  ><br>
 									<span>- 권장 : 300*300pixels 이상 (jpg/gif/png 파일만 업로드)</span><br>
@@ -1099,8 +1033,7 @@
 						<button type="button" id="OptionDel" style="color:white;background:#e60000;">삭제</button>
 						<button type="button" id="OptionAdd" style="color:white;background:gray;">추가</button>
 					</div>
-				<%-- 반려동물 옵션 넘어가는 갯수 --%>	
-					<input type="text" name="optionPetCount" id="optionPetCount" style="display:none;" >
+					
 					
 				<!-- 약관 동의하기 -->	
 					<div id="joinAgree">
@@ -1121,8 +1054,8 @@
 							<tr >
 								<td colspan="2">
 									<input id="agree4" class="agreeCB" type="checkbox">&nbsp;<label for="agree4">마케팅 수신동의</label>
-									(&nbsp;<input name="alert_email" id="agree5" value="1" class="agreeCB" type="checkbox"><label for="agree5">이메일</label>
-									&nbsp;&nbsp;&nbsp;<input name="alert_sms" value="1" id="agree6" class="agreeCB" type="checkbox"><label for="agree6">SMS</label>&nbsp;)<br>
+									(&nbsp;<input name="alert_email" id="agree5" class="agreeCB" type="checkbox"><label for="agree5">이메일</label>
+									&nbsp;&nbsp;&nbsp;<input name="alert_sms" id="agree6" class="agreeCB" type="checkbox"><label for="agree6">SMS</label>&nbsp;)<br>
 									<div style="margin-top: 8px;font-size:90%;">
 										쇼핑몰에서 제공하는 신상품 소식/ 할인쿠폰을 무상으로 보내드립니다!<br>
 										단, 상품 구매 정보는 수신동의 여부 관계없이 발송됩니다.<br>

@@ -29,6 +29,7 @@ public class MyPetAction extends AbstractController {
 			super.setViewPage("/WEB-INF/msg.jsp");
 			return;
 		}
+		
 		String method = request.getMethod();
 		
 		//GET접근
